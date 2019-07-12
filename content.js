@@ -15,3 +15,9 @@ const itemCost = parseInt(price[0].innerText.replace(/£/,""));
 const displayCostPW = document.createElement('p');
 displayCostPW.innerText = `Cost per wear: £${calculateCostPerWear(itemCost)}`;
 price[0].appendChild(displayCostPW);
+
+let header = document.createElement('header');
+header.classList.add('sticky');
+document.body.appendChild(header);
+
+console.log('This should be the header:', document.body.header);

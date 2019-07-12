@@ -1,0 +1,7 @@
+.sticky {
+    width: 100vw;
+    height: 10vh;
+    background-color: red;
+    position: sticky;
+    top: 0;
+}
