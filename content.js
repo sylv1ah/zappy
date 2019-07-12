@@ -10,14 +10,32 @@ const calculateCostPerWear = price => {
     return costPerWear.toFixed(2);
 }
 
-const itemCost = parseInt(price[0].innerText.replace(/£/,""));
+const itemCost = parseInt(price[0].innerText.replace(/£/, ""));
 
 const displayCostPW = document.createElement('p');
 displayCostPW.innerText = `Cost per wear: £${calculateCostPerWear(itemCost)}`;
 price[0].appendChild(displayCostPW);
 
-let header = document.createElement('header');
-header.classList.add('sticky');
-document.body.appendChild(header);
+let slider = document.createElement('input');
 
-console.log('This should be the header:', document.body.header);
+slider.type = 'range';
+slider.min = 1;
+slider.max = 100;
+slider.value = 50;
+slider.classList.add('slider');
+
+let averageWear = document.createElement('p');
+averageWear.textContent = `Average number of wears: ${slider.value}`;
+
+slider.oninput = () => {
+    averageWear.textContent = `Average number of wears: ${slider.value}`;
+}
+
+
+let zappyBar = document.createElement('div');
+zappyBar.appendChild(averageWear);
+zappyBar.appendChild(slider);
+
+zappyBar.classList.add('sticky');
+
+document.body.insertBefore(zappyBar, document.body.firstChild);
