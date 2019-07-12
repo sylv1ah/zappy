@@ -10,3 +10,9 @@ console.log(price[0].innerText);
 
 let material = document.getElementsByClassName('about-me');
 console.log(material[0].innerText);
+
+let header = document.createElement('header');
+header.classList.add('sticky');
+document.body.appendChild(header);
+
+console.log('This should be the header:', document.body.header);
