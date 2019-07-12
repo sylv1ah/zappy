@@ -10,3 +10,8 @@ console.log(price[0].innerText);
 
 let material = document.getElementsByClassName('about-me');
 console.log(material[0].innerText);
+
+let testing = document.createElement('p');
+testing.innerText = "Will this work?";
+material[0].appendChild(testing);
+
