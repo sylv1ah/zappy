@@ -18,7 +18,7 @@ jobs:
           command: echo "Run any tests here."
       - run:
           name: "Package Extension"
-          command: git archive -o zappy.zip HEAD
+          command: git zip -o zappy.zip HEAD
       - run:
           name: "Upload & Publish Extension to the Google Chrome Store"
           command: |
