@@ -1,12 +1,14 @@
 .sticky {
     width: 100vw;
-    position: sticky;
+    height: 5vh;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 
 .slider {
@@ -42,4 +44,11 @@
 
 body {
     padding-top: 100px;
+}
+
+.newBody {
+    transform: translateY(5vh) !important;
+    transition-property: transform;
+    transition-duration: 350ms;
+    min-height: 100%;
 }

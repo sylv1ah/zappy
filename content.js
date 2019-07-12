@@ -32,10 +32,25 @@ slider.oninput = () => {
 }
 
 
+
+
 let zappyBar = document.createElement('div');
 zappyBar.appendChild(averageWear);
 zappyBar.appendChild(slider);
 
 zappyBar.classList.add('sticky');
 
-document.body.insertBefore(zappyBar, document.body.firstChild);
+
+let closeButton = document.createElement("button");
+closeButton.innerText = "close";
+closeButton.addEventListener("click", () => {
+    zappyBar.remove();
+    document.body.classList.remove("newBody");
+});
+zappyBar.appendChild(closeButton);
+
+
+
+document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
+document.body.classList.add("newBody");
+
