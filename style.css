@@ -1,7 +1,16 @@
 .sticky {
-    width: 100vw;
-    height: 10vh;
-    background-color: red;
-    position: sticky;
-    top: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: red;
+  position: fixed;
+  display: block;
+  z-index: 999999999;
+  top: 0;
+}
+
+.newBody {
+  transform: translateY(5vh) !important;
+  transition-property: transform;
+  transition-duration: 350ms;
+  min-height: 100%;
 }
