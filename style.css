@@ -1,7 +1,54 @@
 .sticky {
     width: 100vw;
-    height: 10vh;
-    background-color: red;
-    position: sticky;
+    height: 5vh;
+    position: fixed;
     top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 20%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin: 3em 1em;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+body {
+    padding-top: 100px;
+}
+
+.newBody {
+    transform: translateY(5vh) !important;
+    transition-property: transform;
+    transition-duration: 350ms;
+    min-height: 100%;
 }
