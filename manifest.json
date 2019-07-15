@@ -9,6 +9,7 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "web_accessible_resources": ["assets/*.png"],
   "icons": {
     "16": "./assets/terrapin16.png",
     "48": "./assets/terrapin48.png",
