@@ -22,32 +22,65 @@ let slider = document.createElement("input");
 slider.type = "range";
 slider.min = 1;
 slider.max = 7;
-slider.value = (slider.max / 2).toFixed(1);
+slider.value = Math.round(slider.max / 2);
+slider.timeframe = 'week';
 slider.classList.add("slider");
 
 let averageWear = document.createElement("p");
-slider.value == 1
+slider.value === 1
   ? (averageWear.textContent = `${slider.value} use per`)
   : (averageWear.textContent = `${slider.value} uses per`);
 
+const changeSliderValue = (value) => {
+  return value === 1
+    ? (averageWear.textContent = `${value} use per`)
+    : (averageWear.textContent = `${value} uses per`);
+}
+
 slider.oninput = () => {
-  slider.value == 1
-    ? (averageWear.textContent = `${slider.value} use per`)
-    : (averageWear.textContent = `${slider.value} uses per`);
+  changeSliderValue(slider.value);
 };
+
 
 //TIME FRAME SELECT
 let timeFrameObj = {
   week: 7,
-  month: 31,
+  month: 30,
   year: 365
 };
 
 let timeFrameSelect = document.createElement("select");
 timeFrameSelect.id = "timeFrameSelect";
 
+const convertUses = (current, target, value) => {
+  return (current === 'week')
+    ? (target === 'month')
+      ? value / 7 * 30
+      : (target === 'year')
+        ? value / 7 * 365
+        : value
+    : (current === 'month')
+      ? (target === 'week')
+        ? value / 30 * 7
+        : (target === 'year')
+          ? value / 30 * 365
+          : value
+      : (current === 'year')
+        ? (target === 'week')
+          ? value / 365 * 7
+          : (target === 'month')
+            ? value / 365 * 30
+            : value
+        : value;
+}
+
 timeFrameSelect.onchange = () => {
+  slider.max = 10000;
+  // We temporarily reassign the maximum value of the slider so it does not interfere with changing the slider's value.
+  slider.value = Math.round(convertUses(slider.timeframe, timeFrameSelect.value, slider.value));
+  slider.timeframe = timeFrameSelect.value;
   slider.max = timeFrameObj[timeFrameSelect.value];
+  changeSliderValue(slider.value);
 };
 
 Object.keys(timeFrameObj).map(key => {
@@ -56,6 +89,10 @@ Object.keys(timeFrameObj).map(key => {
   option.text = key;
   timeFrameSelect.appendChild(option);
 });
+
+
+
+
 
 //INFO BUTTON
 let infoButton = document.createElement("button");
