@@ -27,12 +27,10 @@ slider.timeframe = 'week';
 slider.classList.add("slider");
 
 let averageWear = document.createElement("p");
-slider.value === 1
-  ? (averageWear.textContent = `${slider.value} use per`)
-  : (averageWear.textContent = `${slider.value} uses per`);
+averageWear.textContent = `${slider.value} uses per`;
 
 const changeSliderValue = (value) => {
-  return value === 1
+  return value == 1
     ? (averageWear.textContent = `${value} use per`)
     : (averageWear.textContent = `${value} uses per`);
 }
