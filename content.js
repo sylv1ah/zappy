@@ -16,6 +16,44 @@ const displayCostPW = document.createElement("p");
 displayCostPW.innerText = `Cost per wear: £${calculateCostPerWear(itemCost)}`;
 price[0].appendChild(displayCostPW);
 
+//COST PER WEAR
+let costPW = document.createElement("div");
+
+const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
+  if (timeFrame === 365) {
+    lifetimeDays = lifetime * 365;
+    let wearAmount = lifetimeDays * (timeFrameValue / timeFrame);
+    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
+      2
+    )}`;
+  } else if (selectSeasons === 0) {
+    selectSeasons = 4;
+    lifetimeDays = lifetime * 365;
+    let wearAmount =
+      lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
+    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
+      2
+    )}`;
+  } else {
+    lifetimeDays = lifetime * 365;
+    let wearAmount =
+      lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
+    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
+      2
+    )}`;
+  }
+};
+
+window.onload = () => {
+  CPW(
+    itemCost,
+    slider.value,
+    timeFrameObj[timeFrameSelect.value],
+    selectSeasons,
+    lifetimeSlider.value
+  );
+};
+
 //SLIDER
 let slider = document.createElement("input");
 
@@ -23,22 +61,28 @@ slider.type = "range";
 slider.min = 1;
 slider.max = 7;
 slider.value = Math.round(slider.max / 2);
-slider.timeframe = 'week';
+slider.timeframe = "week";
 slider.classList.add("slider");
 
 let averageWear = document.createElement("p");
 averageWear.textContent = `${slider.value} uses per`;
 
-const changeSliderValue = (value) => {
+const changeSliderValue = value => {
   return value == 1
     ? (averageWear.textContent = `${value} use per`)
     : (averageWear.textContent = `${value} uses per`);
-}
+};
 
 slider.oninput = () => {
   changeSliderValue(slider.value);
+  CPW(
+    itemCost,
+    slider.value,
+    timeFrameObj[timeFrameSelect.value],
+    selectSeasons,
+    lifetimeSlider.value
+  );
 };
-
 
 //TIME FRAME SELECT
 let timeFrameObj = {
@@ -51,34 +95,43 @@ let timeFrameSelect = document.createElement("select");
 timeFrameSelect.id = "timeFrameSelect";
 
 const convertUses = (current, target, value) => {
-  return (current === 'week')
-    ? (target === 'month')
-      ? value / 7 * 30
-      : (target === 'year')
-        ? value / 7 * 365
-        : value
-    : (current === 'month')
-      ? (target === 'week')
-        ? value / 30 * 7
-        : (target === 'year')
-          ? value / 30 * 365
-          : value
-      : (current === 'year')
-        ? (target === 'week')
-          ? value / 365 * 7
-          : (target === 'month')
-            ? value / 365 * 30
-            : value
-        : value;
-}
+  return current === "week"
+    ? target === "month"
+      ? (value / 7) * 30
+      : target === "year"
+      ? (value / 7) * 365
+      : value
+    : current === "month"
+    ? target === "week"
+      ? (value / 30) * 7
+      : target === "year"
+      ? (value / 30) * 365
+      : value
+    : current === "year"
+    ? target === "week"
+      ? (value / 365) * 7
+      : target === "month"
+      ? (value / 365) * 30
+      : value
+    : value;
+};
 
 timeFrameSelect.onchange = () => {
   slider.max = 10000;
   // We temporarily reassign the maximum value of the slider so it does not interfere with changing the slider's value.
-  slider.value = Math.round(convertUses(slider.timeframe, timeFrameSelect.value, slider.value));
+  slider.value = Math.round(
+    convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
+  );
   slider.timeframe = timeFrameSelect.value;
   slider.max = timeFrameObj[timeFrameSelect.value];
   changeSliderValue(slider.value);
+  CPW(
+    itemCost,
+    slider.value,
+    timeFrameObj[timeFrameSelect.value],
+    selectSeasons,
+    lifetimeSlider.value
+  );
 };
 
 Object.keys(timeFrameObj).map(key => {
@@ -88,10 +141,6 @@ Object.keys(timeFrameObj).map(key => {
   timeFrameSelect.appendChild(option);
 });
 
-
-
-
-
 //INFO BUTTON
 let infoButton = document.createElement("button");
 infoButton.textContent = "i";
@@ -99,6 +148,7 @@ infoButton.classList.add("info-button");
 
 //SEASON CHECKBOXES
 let seasons = ["spring", "summer", "autumn", "winter"];
+let selectSeasons = 0;
 let seasonSelector = document.createElement("div");
 seasonSelector.classList.add("season-selector");
 let seasonSelectorText = document.createElement("button");
@@ -116,6 +166,17 @@ seasons.map(season => {
   input.name = "season";
   input.id = season;
   input.value = season;
+  input.onchange = () => {
+    selectSeasons = document.querySelectorAll('input[type="checkbox"]:checked')
+      .length;
+    CPW(
+      itemCost,
+      slider.value,
+      timeFrameObj[timeFrameSelect.value],
+      selectSeasons,
+      lifetimeSlider.value
+    );
+  };
   label.htmlFor = season;
   label.textContent = season;
   checkbox = document.createElement("div");
@@ -136,9 +197,39 @@ seasonSelectorText.addEventListener("click", () => {
   }
 });
 
-//COST PER WEAR
-let costPW = document.createElement("div");
-costPW.textContent = `Cost per wear: £${itemCost}`;
+//LIFETIME SLIDER
+
+let lifetimeSlider = document.createElement("input");
+
+lifetimeSlider.type = "range";
+lifetimeSlider.min = 1;
+lifetimeSlider.max = 5;
+lifetimeSlider.value = Math.round(lifetimeSlider.max / 2);
+lifetimeSlider.classList.add("slider");
+
+let lifetime = document.createElement("p");
+lifetime.textContent = `for ${lifetimeSlider.value} years`;
+
+const changeLifetimeSliderValue = value => {
+  if (value == 1) {
+    lifetime.textContent = `for ${value} year`;
+  } else if (value == 5) {
+    lifetime.textContent = `for ${value}+ years`;
+  } else {
+    lifetime.textContent = `for ${value} years`;
+  }
+};
+
+lifetimeSlider.oninput = () => {
+  changeLifetimeSliderValue(lifetimeSlider.value);
+  CPW(
+    itemCost,
+    slider.value,
+    timeFrameObj[timeFrameSelect.value],
+    selectSeasons,
+    lifetimeSlider.value
+  );
+};
 
 //CLOSE BUTTON
 let closeButton = document.createElement("button");
@@ -157,6 +248,8 @@ zappyBar.appendChild(averageWear);
 zappyBar.appendChild(timeFrameSelect);
 zappyBar.appendChild(infoButton);
 zappyBar.appendChild(seasonSelector);
+zappyBar.appendChild(lifetimeSlider);
+zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
 zappyBar.appendChild(closeButton);
 
