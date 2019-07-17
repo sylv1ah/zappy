@@ -51,22 +51,6 @@
   /* margin: 0 0px 0 -10px; */
 }
 
-/* input[type="range"]::-moz-range-track {
-  transform: scaleX(0.5);
-} */
-/* 
-input[type="range"]:focus::-webkit-slider-runnable-track {
-  transform: scaleX(0.5);
-}
-
-input[type="range"]::-moz-range-track {
-  transform: scaleX(0.5);
-} */
-
-/* input[type="range"]::-ms-track {
-  transform: scaleX(0.5);
-} */
-
 body {
   padding-top: 100px;
 }
