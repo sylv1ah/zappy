@@ -17,28 +17,16 @@ console.log("itemcost =", itemCost);
 let costPW = document.createElement("div");
 
 const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
-  if (timeFrame === 365) {
-    lifetimeDays = lifetime * 365;
-    let wearAmount = lifetimeDays * (timeFrameValue / timeFrame);
-    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
-      2
-    )}`;
-  } else if (selectSeasons === 0) {
+  if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
-    lifetimeDays = lifetime * 365;
-    let wearAmount =
-      lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
-      2
-    )}`;
-  } else {
-    lifetimeDays = lifetime * 365;
-    let wearAmount =
-      lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-    costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
-      2
-    )}`;
   }
+  console.log('Seasons', selectSeasons);
+  lifetimeDays = lifetime * 365;
+  let wearAmount =
+    lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
+  costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
+    2
+  )}`;
 };
 
 window.onload = () => {
@@ -96,24 +84,31 @@ const convertUses = (current, target, value) => {
     ? target === "month"
       ? (value / 7) * 30
       : target === "year"
-      ? (value / 7) * 365
-      : value
+        ? (value / 7) * 365
+        : value
     : current === "month"
-    ? target === "week"
-      ? (value / 30) * 7
-      : target === "year"
-      ? (value / 30) * 365
-      : value
-    : current === "year"
-    ? target === "week"
-      ? (value / 365) * 7
-      : target === "month"
-      ? (value / 365) * 30
-      : value
-    : value;
+      ? target === "week"
+        ? (value / 30) * 7
+        : target === "year"
+          ? (value / 30) * 365
+          : value
+      : current === "year"
+        ? target === "week"
+          ? (value / 365) * 7
+          : target === "month"
+            ? (value / 365) * 30
+            : value
+        : value;
 };
 
 timeFrameSelect.onchange = () => {
+  seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+
+  if (seasonCheckboxes.style.display = "block" && timeFrameSelect.value === 'year') {
+    seasonCheckboxes.style.display = "none";
+  }
+
+  //disable select options for seasons
   slider.max = 10000;
   // We temporarily reassign the maximum value of the slider so it does not interfere with changing the slider's value.
   slider.value = Math.round(
