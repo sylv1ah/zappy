@@ -17,9 +17,10 @@ console.log("itemcost =", itemCost);
 let costPW = document.createElement("div");
 
 let costValue = document.createElement("span");
-costValue.classList.add("costValue");
+costValue.classList.add("cost-value", "text-format");
 let perWear = document.createElement("span");
 perWear.textContent = "Cost per wear: ";
+perWear.classList.add("text-format");
 
 costPW.appendChild(perWear);
 costPW.appendChild(costValue);
@@ -57,13 +58,14 @@ slider.classList.add("slider");
 
 
 let usesPer = document.createElement("p");
+usesPer.classList.add('text-format');
 
 let useValue = document.createElement("span");
-useValue.classList.add('useValue');
+useValue.classList.add('use-value', 'text-format');
 useValue.textContent = slider.value;
 
 let averageWear = document.createElement("span");
-averageWear.textContent = ' uses per';
+averageWear.textContent = ' uses per ';
 
 usesPer.appendChild(useValue);
 usesPer.appendChild(averageWear);
@@ -71,8 +73,8 @@ usesPer.appendChild(averageWear);
 const changeSliderValue = value => {
   useValue.textContent = slider.value;
   value == 1
-    ? (averageWear.textContent = ' use per')
-    : (averageWear.textContent = ' uses per');
+    ? (averageWear.textContent = ' use per ')
+    : (averageWear.textContent = ' uses per ');
 };
 
 
@@ -99,6 +101,12 @@ let timeFrameObj = {
 
 let timeFrameSelect = document.createElement("select");
 timeFrameSelect.id = "timeFrameSelect";
+timeFrameSelect.classList.add("text-format");
+
+let usesPerTimeframe = document.createElement("div");
+usesPerTimeframe.classList.add("uses-per-timeframe");
+usesPerTimeframe.appendChild(usesPer);
+usesPerTimeframe.appendChild(timeFrameSelect);
 
 const convertUses = (current, target, value) => {
   return current === "week"
@@ -165,7 +173,7 @@ let selectSeasons = 0;
 let seasonSelector = document.createElement("div");
 seasonSelector.classList.add("season-selector");
 let seasonSelectorText = document.createElement("button");
-seasonSelectorText.classList.add("season-selector-text");
+seasonSelectorText.classList.add("season-selector-text", "text-format");
 seasonSelectorText.textContent = "Choose seasons:";
 seasonSelector.appendChild(seasonSelectorText);
 let seasonCheckboxes = document.createElement("div");
@@ -179,6 +187,7 @@ seasons.map(season => {
   input.name = "season";
   input.id = season;
   input.value = season;
+  label.classList.add('text-format');
   input.onchange = () => {
     selectSeasons = document.querySelectorAll('input[type="checkbox"]:checked')
       .length;
@@ -219,9 +228,11 @@ lifetimeSlider.min = 1;
 lifetimeSlider.max = 5;
 lifetimeSlider.value = Math.round(lifetimeSlider.max / 2);
 lifetimeSlider.classList.add("slider");
+lifetimeSlider.classList.add("lifetime-slider");
 
 let lifetime = document.createElement("p");
 lifetime.textContent = `for ${lifetimeSlider.value} years`;
+lifetime.classList.add("text-format");
 
 const changeLifetimeSliderValue = value => {
   if (value == 1) {
@@ -257,8 +268,7 @@ closeButton.addEventListener("click", () => {
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
 zappyBar.appendChild(slider);
-zappyBar.appendChild(usesPer);
-zappyBar.appendChild(timeFrameSelect);
+zappyBar.appendChild(usesPerTimeframe);
 zappyBar.appendChild(infoButton);
 zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetimeSlider);
