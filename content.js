@@ -1,20 +1,17 @@
-let price = document.getElementsByClassName("current-price");
+let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
+if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS 
+if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
+if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo 
+if (price.length == 0) price = document.getElementsByClassName('price-discount'); // Shein 
+if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
+if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
+
 console.log(price[0].innerText);
 
-let material = document.getElementsByClassName("about-me");
-console.log(material[0].innerText);
+const itemCost = parseFloat(price[0].innerText.replace(/[£$A-Z]/gi, "")).toFixed(2);
+console.log("itemcost =", itemCost);
 
-const calculateCostPerWear = price => {
-  let lifetimeUse = 2;
-  const costPerWear = price / lifetimeUse;
-  return costPerWear.toFixed(2);
-};
-
-const itemCost = parseInt(price[0].innerText.replace(/£/, ""));
-
-const displayCostPW = document.createElement("p");
-displayCostPW.innerText = `Cost per wear: £${calculateCostPerWear(itemCost)}`;
-price[0].appendChild(displayCostPW);
 
 //COST PER WEAR
 let costPW = document.createElement("div");
