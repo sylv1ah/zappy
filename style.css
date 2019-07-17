@@ -53,6 +53,14 @@
   /* margin: 0 0px 0 -10px; */
 }
 
+.lifetime-slider::-webkit-slider-thumb {
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
+}
+
+.lifetime-slider::-moz-range-thumb {
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
+}
+
 body {
   padding-top: 100px;
 }
