@@ -61,14 +61,29 @@ slider.value = Math.round(slider.max / 2);
 slider.timeframe = "week";
 slider.classList.add("slider");
 
-let averageWear = document.createElement("p");
-averageWear.textContent = `${slider.value} uses per`;
+
+let usesPer = document.createElement("p");
+
+let useValue = document.createElement("span");
+useValue.classList.add('useValue');
+useValue.textContent = slider.value;
+
+let averageWear = document.createElement("span");
+averageWear.textContent = ' uses per';
+
+usesPer.appendChild(useValue);
+usesPer.appendChild(averageWear);
 
 const changeSliderValue = value => {
-  return value == 1
-    ? (averageWear.textContent = `${value} use per`)
-    : (averageWear.textContent = `${value} uses per`);
+  useValue.textContent = slider.value;
+  value == 1
+    ? (averageWear.textContent = ' use per')
+    : (averageWear.textContent = ' uses per');
 };
+
+
+
+
 
 slider.oninput = () => {
   changeSliderValue(slider.value);
@@ -96,21 +111,21 @@ const convertUses = (current, target, value) => {
     ? target === "month"
       ? (value / 7) * 30
       : target === "year"
-      ? (value / 7) * 365
-      : value
+        ? (value / 7) * 365
+        : value
     : current === "month"
-    ? target === "week"
-      ? (value / 30) * 7
-      : target === "year"
-      ? (value / 30) * 365
-      : value
-    : current === "year"
-    ? target === "week"
-      ? (value / 365) * 7
-      : target === "month"
-      ? (value / 365) * 30
-      : value
-    : value;
+      ? target === "week"
+        ? (value / 30) * 7
+        : target === "year"
+          ? (value / 30) * 365
+          : value
+      : current === "year"
+        ? target === "week"
+          ? (value / 365) * 7
+          : target === "month"
+            ? (value / 365) * 30
+            : value
+        : value;
 };
 
 timeFrameSelect.onchange = () => {
@@ -241,7 +256,7 @@ closeButton.addEventListener("click", () => {
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
 zappyBar.appendChild(slider);
-zappyBar.appendChild(averageWear);
+zappyBar.appendChild(usesPer);
 zappyBar.appendChild(timeFrameSelect);
 zappyBar.appendChild(infoButton);
 zappyBar.appendChild(seasonSelector);
