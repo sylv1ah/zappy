@@ -16,6 +16,14 @@ console.log("itemcost =", itemCost);
 //COST PER WEAR
 let costPW = document.createElement("div");
 
+let costValue = document.createElement("span");
+costValue.classList.add("costValue");
+let perWear = document.createElement("span");
+perWear.textContent = "Cost per wear: ";
+
+costPW.appendChild(perWear);
+costPW.appendChild(costValue);
+
 const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
   if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
@@ -24,9 +32,7 @@ const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
   lifetimeDays = lifetime * 365;
   let wearAmount =
     lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-  costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
-    2
-  )}`;
+  costValue.textContent = "£" + (itemCost / wearAmount).toFixed(2);
 };
 
 window.onload = () => {
