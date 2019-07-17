@@ -6,31 +6,31 @@
 const title = document.title;
 
 const itemLifetimes = {
-"dress": 3,
-"lingerie": 5,
-"heels":8,
-"trousers":19,
-"swimwear":12,
-"activewear":34,
-"coat": 54,
-"jacket":54,
-"workwear":65,
-"shoes":35,
-"skirt":38,
-"jumper":54,
-"sweater":54,
-"shorts":46,
-"trainers":91,
-"nightwear":40,
-"pyjamas": 40,
-"t-shirt":95,
-"underwear":36,
-"jeans":298
+  "dress": 3,
+  "lingerie": 5,
+  "heels":8,
+  "trousers":19,
+  "swimwear":12,
+  "activewear":34,
+  "coat": 54,
+  "jacket":54,
+  "workwear":65,
+  "shoes":35,
+  "skirt":38,
+  "jumper":54,
+  "sweater":54,
+  "shorts":46,
+  "trainers":91,
+  "nightwear":40,
+  "pyjamas": 40,
+  "t-shirt":95,
+  "underwear":36,
+  "jeans":298
 }
 
 const itemArray = Object.keys(itemLifetimes);
 
-const pageItem = itemArray.filter(word => title.toLowerCase().includes(word)).toString;
+const pageItem = itemArray.filter(word => title.toLowerCase().includes(word)).toString();
 console.log(pageItem);
 
 // SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES 
