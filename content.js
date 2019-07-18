@@ -29,9 +29,9 @@ const itemLifetimes = {
 }
 
 const itemArray = Object.keys(itemLifetimes);
-
 const pageItem = itemArray.filter(word => title.toLowerCase().includes(word)).toString();
-console.log(pageItem);
+const itemLifetime = itemLifetimes[pageItem];
+
 
 // SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES 
 let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
