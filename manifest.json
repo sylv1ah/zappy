@@ -4,7 +4,12 @@
   "name": "hackathon-homies",
   "description": "slow fashion, quick maths",
   "author": "Joko Sanyang, Freddie Preece, Sylvia Hoang",
-  "permissions": ["storage", "activeTab", "declarativeContent"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "declarativeContent",
+    "https://currency-converter5.p.rapidapi.com"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

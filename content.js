@@ -1,17 +1,19 @@
 let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
-if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS 
-if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo 
-if (price.length == 0) price = document.getElementsByClassName('price-discount'); // Shein 
-if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
-if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
+if (price.length == 0) price = document.getElementsByClassName("current-price"); // ASOS
+if (price.length == 0) price = document.getElementsByClassName("product-price"); // ZARA - not working yet
+if (price.length == 0) price = document.getElementsByClassName("price-sales"); // Uniqlo
+if (price.length == 0)
+  price = document.getElementsByClassName("price-discount"); // Shein
+if (price.length == 0) price = document.getElementsByClassName("on-sale"); // Macy's sale items
+if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // Nordstrom
 
-console.log(price[0].innerText);
+// console.log(price[0].innerText);
 
-const itemCost = parseFloat(price[0].innerText.replace(/[£$A-Z]/gi, "")).toFixed(2);
-console.log("itemcost =", itemCost);
-
+const itemCost = parseFloat(
+  price[0].innerText.replace(/[£$A-Z]/gi, "")
+).toFixed(2);
+// console.log("itemcost =", itemCost);
 
 //COST PER WEAR
 let costPW = document.createElement("div");
@@ -20,13 +22,11 @@ const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
   if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
   }
-  console.log('Seasons', selectSeasons);
+  console.log("Seasons", selectSeasons);
   lifetimeDays = lifetime * 365;
   let wearAmount =
     lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-  costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(
-    2
-  )}`;
+  costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(2)}`;
 };
 
 window.onload = () => {
@@ -84,27 +84,30 @@ const convertUses = (current, target, value) => {
     ? target === "month"
       ? (value / 7) * 30
       : target === "year"
-        ? (value / 7) * 365
-        : value
+      ? (value / 7) * 365
+      : value
     : current === "month"
-      ? target === "week"
-        ? (value / 30) * 7
-        : target === "year"
-          ? (value / 30) * 365
-          : value
-      : current === "year"
-        ? target === "week"
-          ? (value / 365) * 7
-          : target === "month"
-            ? (value / 365) * 30
-            : value
-        : value;
+    ? target === "week"
+      ? (value / 30) * 7
+      : target === "year"
+      ? (value / 30) * 365
+      : value
+    : current === "year"
+    ? target === "week"
+      ? (value / 365) * 7
+      : target === "month"
+      ? (value / 365) * 30
+      : value
+    : value;
 };
 
 timeFrameSelect.onchange = () => {
-  seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+  seasonSelectorText.disabled = timeFrameSelect.value === "year" ? true : false;
 
-  if (seasonCheckboxes.style.display = "block" && timeFrameSelect.value === 'year') {
+  if (
+    (seasonCheckboxes.style.display =
+      "block" && timeFrameSelect.value === "year")
+  ) {
     seasonCheckboxes.style.display = "none";
   }
 
@@ -247,3 +250,15 @@ zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
 document.body.classList.add("newBody");
+
+//CURRENCY CONVERT
+
+let baseCurrency = "GBP";
+let newCurrency = "USD";
+
+//this sends message to background.js
+chrome.runtime.sendMessage({
+  itemCost: itemCost,
+  baseCurrency: baseCurrency,
+  newCurrency: newCurrency
+});
