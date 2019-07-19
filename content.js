@@ -18,7 +18,14 @@ const itemCost = parseFloat(
 //COST PER WEAR
 let costPW = document.createElement("div");
 
-const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
+const CPW = (
+  itemCost,
+  timeFrameValue,
+  timeFrame,
+  selectSeasons,
+  lifetime,
+  currency
+) => {
   if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
   }
@@ -26,6 +33,12 @@ const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
   lifetimeDays = lifetime * 365;
   let wearAmount =
     lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
+  let convertedAmount = currencyConverterFunction(
+    currency,
+    itemCost / wearAmount
+  );
+  currencyConverterFunction(currency, itemCost / wearAmount);
+  //   console.log("new item cost :", newItemCost);
   costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(2)}`;
 };
 
@@ -35,8 +48,10 @@ window.onload = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
+  sendMessageToBackground();
 };
 
 //SLIDER
@@ -65,7 +80,8 @@ slider.oninput = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
 };
 
@@ -125,7 +141,8 @@ timeFrameSelect.onchange = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
 };
 
@@ -169,7 +186,8 @@ seasons.map(season => {
       slider.value,
       timeFrameObj[timeFrameSelect.value],
       selectSeasons,
-      lifetimeSlider.value
+      lifetimeSlider.value,
+      currencySelect.value
     );
   };
   label.htmlFor = season;
@@ -222,7 +240,8 @@ lifetimeSlider.oninput = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
 };
 
@@ -235,6 +254,103 @@ closeButton.addEventListener("click", () => {
   document.body.classList.remove("newBody");
 });
 
+//CURRENCY SELECT
+let currencySelect = document.createElement("select");
+// let currencyList = ["GBP"];
+
+let sendMessageToBackground = () => {
+  chrome.runtime.sendMessage(
+    {
+      contentScriptQuery: "getCurrencyList",
+      url: "https://currency-converter5.p.rapidapi.com/currency/list"
+    },
+    response => {
+      console.log("currencies in content.js:", response.res);
+      currencyList.push(Object.keys(response.res));
+    }
+  );
+};
+
+let currencyList = [
+  "GBP",
+  "AUD",
+  "BGN",
+  "BRL",
+  "CAD",
+  "CHF",
+  "CNY",
+  "CZK",
+  "DKK",
+  "EUR",
+  "HKD",
+  "HRK",
+  "HUF",
+  "IDR",
+  "ILS",
+  "INR",
+  "ISK",
+  "JPY",
+  "KRW",
+  "MXN",
+  "MYR",
+  "NOK",
+  "NZD",
+  "PHP",
+  "PLN",
+  "RON",
+  "RUB",
+  "SEK",
+  "SGD",
+  "THB",
+  "TRY",
+  "USD",
+  "ZAR"
+];
+
+currencyList.map(currency => {
+  option = document.createElement("option");
+  option.value = currency;
+  option.text = currency;
+  currencySelect.appendChild(option);
+});
+
+//CURRENCY CONVERT
+let baseCurrency = "GBP";
+// let newCurrency = "USD";
+
+let currencyConverterFunction = (selectedCurrency, runningTotal) => {
+  return chrome.runtime.sendMessage(
+    {
+      contentScriptQuery: "getConversion",
+      runningTotal: runningTotal,
+      baseCurrency: baseCurrency,
+      newCurrency: selectedCurrency
+    },
+    response => {
+      console.log(
+        "conversion response:",
+        response.res[selectedCurrency].rate_for_amount
+      );
+      return (newItemCost = response.res[selectedCurrency].rate_for_amount);
+      console.log("newItemCost inside response:", newItemCost);
+    }
+  );
+};
+
+currencySelect.onchange = () => {
+  let newCurrency = currencySelect.value;
+  console.log("new currency:", newCurrency);
+  //   currencyConverterFunction(newCurrency);
+  CPW(
+    itemCost,
+    slider.value,
+    timeFrameObj[timeFrameSelect.value],
+    selectSeasons,
+    lifetimeSlider.value,
+    currencySelect.value
+  );
+};
+
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
@@ -246,19 +362,8 @@ zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetimeSlider);
 zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
+zappyBar.appendChild(currencySelect);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
 document.body.classList.add("newBody");
-
-//CURRENCY CONVERT
-
-let baseCurrency = "GBP";
-let newCurrency = "USD";
-
-//this sends message to background.js
-chrome.runtime.sendMessage({
-  itemCost: itemCost,
-  baseCurrency: baseCurrency,
-  newCurrency: newCurrency
-});
