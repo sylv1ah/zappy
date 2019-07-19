@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     fetch(url, {
       headers: {
         "X-RapidAPI-Host": "currency-converter5.p.rapidapi.com",
-        "X-RapidAPI-Key": "ASK-FOR-KEY"
+        "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59"
       }
     })
       .then(r => r.json())
@@ -41,7 +41,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     fetch(request.url, {
       headers: {
         "X-RapidAPI-Host": "currency-converter5.p.rapidapi.com",
-        "X-RapidAPI-Key": ""
+        "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59"
       }
     })
       .then(r => r.json())

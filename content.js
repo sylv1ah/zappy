@@ -13,6 +13,7 @@ if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // No
 const itemCost = parseFloat(
   price[0].innerText.replace(/[£$A-Z]/gi, "")
 ).toFixed(2);
+
 // console.log("itemcost =", itemCost);
 
 //COST PER WEAR
@@ -24,22 +25,21 @@ const CPW = (
   timeFrame,
   selectSeasons,
   lifetime,
-  currency
+  newCurrency
 ) => {
   if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
   }
-  console.log("Seasons", selectSeasons);
   lifetimeDays = lifetime * 365;
   let wearAmount =
     lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-  let convertedAmount = currencyConverterFunction(
-    currency,
-    itemCost / wearAmount
+  let adjustedCost = itemCost / wearAmount;
+
+  currencyConverterFunction(
+    newCurrency,
+    adjustedCost
   );
-  currencyConverterFunction(currency, itemCost / wearAmount);
-  //   console.log("new item cost :", newItemCost);
-  costPW.textContent = `Cost per wear: £${(itemCost / wearAmount).toFixed(2)}`;
+
 };
 
 window.onload = () => {
@@ -100,21 +100,21 @@ const convertUses = (current, target, value) => {
     ? target === "month"
       ? (value / 7) * 30
       : target === "year"
-      ? (value / 7) * 365
-      : value
+        ? (value / 7) * 365
+        : value
     : current === "month"
-    ? target === "week"
-      ? (value / 30) * 7
-      : target === "year"
-      ? (value / 30) * 365
-      : value
-    : current === "year"
-    ? target === "week"
-      ? (value / 365) * 7
-      : target === "month"
-      ? (value / 365) * 30
-      : value
-    : value;
+      ? target === "week"
+        ? (value / 30) * 7
+        : target === "year"
+          ? (value / 30) * 365
+          : value
+      : current === "year"
+        ? target === "week"
+          ? (value / 365) * 7
+          : target === "month"
+            ? (value / 365) * 30
+            : value
+        : value;
 };
 
 timeFrameSelect.onchange = () => {
@@ -327,12 +327,8 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
       newCurrency: selectedCurrency
     },
     response => {
-      console.log(
-        "conversion response:",
-        response.res[selectedCurrency].rate_for_amount
-      );
-      return (newItemCost = response.res[selectedCurrency].rate_for_amount);
-      console.log("newItemCost inside response:", newItemCost);
+      let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount).toFixed(2);
+      costPW.textContent = `Cost per wear: £${(convertedCost)}`;
     }
   );
 };
@@ -341,6 +337,7 @@ currencySelect.onchange = () => {
   let newCurrency = currencySelect.value;
   console.log("new currency:", newCurrency);
   //   currencyConverterFunction(newCurrency);
+
   CPW(
     itemCost,
     slider.value,
