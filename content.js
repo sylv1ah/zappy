@@ -15,6 +15,7 @@ console.log("itemcost =", itemCost);
 
 //COST PER WEAR
 let costPW = document.createElement("div");
+costPW.classList.add("text-format");
 
 let costValue = document.createElement("span");
 costValue.classList.add("cost-value", "text-format");
@@ -92,6 +93,10 @@ slider.oninput = () => {
   );
 };
 
+//INFO BUTTON
+let infoButton = document.createElement("button");
+infoButton.classList.add("info-button");
+
 //TIME FRAME SELECT
 let timeFrameObj = {
   week: 7,
@@ -103,10 +108,13 @@ let timeFrameSelect = document.createElement("select");
 timeFrameSelect.id = "timeFrameSelect";
 timeFrameSelect.classList.add("text-format");
 
-let usesPerTimeframe = document.createElement("div");
+let usesPerTimeframe = document.createElement("section");
 usesPerTimeframe.classList.add("uses-per-timeframe");
+usesPerTimeframe.appendChild(slider);
 usesPerTimeframe.appendChild(usesPer);
 usesPerTimeframe.appendChild(timeFrameSelect);
+usesPerTimeframe.appendChild(infoButton);
+
 
 const convertUses = (current, target, value) => {
   return current === "week"
@@ -161,11 +169,6 @@ Object.keys(timeFrameObj).map(key => {
   option.text = key;
   timeFrameSelect.appendChild(option);
 });
-
-//INFO BUTTON
-let infoButton = document.createElement("button");
-infoButton.textContent = "i";
-infoButton.classList.add("info-button");
 
 //SEASON CHECKBOXES
 let seasons = ["spring", "summer", "autumn", "winter"];
@@ -230,17 +233,37 @@ lifetimeSlider.value = Math.round(lifetimeSlider.max / 2);
 lifetimeSlider.classList.add("slider");
 lifetimeSlider.classList.add("lifetime-slider");
 
-let lifetime = document.createElement("p");
-lifetime.textContent = `for ${lifetimeSlider.value} years`;
-lifetime.classList.add("text-format");
+let lifetimeText = document.createElement("p");
+lifetimeText.classList.add("text-format");
+
+let lifetimeFor = document.createElement("span");
+lifetimeFor.textContent = "for ";
+let lifetimeValue = document.createElement("span");
+lifetimeValue.textContent = lifetimeSlider.value;
+lifetimeValue.classList.add('Text-value')
+let lifetimeYears = document.createElement("span");
+lifetimeYears.textContent = " years";
+lifetimeYears.classList.add('lifetimeYears');
+
+lifetimeText.appendChild(lifetimeFor);
+lifetimeText.appendChild(lifetimeValue);
+lifetimeText.appendChild(lifetimeYears);
+
+let lifetime = document.createElement('section');
+lifetime.appendChild(lifetimeSlider);
+lifetime.appendChild(lifetimeText);
+lifetime.classList.add('lifetime');
+
+
 
 const changeLifetimeSliderValue = value => {
+  lifetimeValue.textContent = value;
   if (value == 1) {
-    lifetime.textContent = `for ${value} year`;
+    lifetimeYears.textContent = ` year`;
   } else if (value == 5) {
-    lifetime.textContent = `for ${value}+ years`;
+    lifetimeYears.textContent = `+ years`;
   } else {
-    lifetime.textContent = `for ${value} years`;
+    lifetimeYears.textContent = ` years`;
   }
 };
 
@@ -267,11 +290,8 @@ closeButton.addEventListener("click", () => {
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
-zappyBar.appendChild(slider);
 zappyBar.appendChild(usesPerTimeframe);
-zappyBar.appendChild(infoButton);
 zappyBar.appendChild(seasonSelector);
-zappyBar.appendChild(lifetimeSlider);
 zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
 zappyBar.appendChild(closeButton);
