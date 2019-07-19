@@ -109,6 +109,16 @@ select {
   height: 1.5em;
   padding: 0.2em;
   cursor: pointer;
+
+  font-size: 16px !important;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  color: black !important;
+  text-transform: none !important;
 }
 
 .season-selector-text {
@@ -145,11 +155,12 @@ select {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  font-size: 1.6em;
+  font-size: 25.6px;
   margin: 0.2em;
   padding: 0em;
   display: flex;
   align-items: center;
+  color: black;
 }
 
 .info-button {
@@ -165,28 +176,26 @@ select {
   border: 0px;
 }
 
-.use-value {
-  font-weight: bold;
-  text-align: right;
-  display: inline-block;
-  width: 3ch;
-}
-
-.cost-value {
-  font-weight: bold;
-}
-
-.lifetime-value {
-  font-weight: bold;
-}
-
 .text-format {
-  font-size: 1em !important;
+  font-size: 16px !important;
   font-family: Tahoma !important;
   font-weight: 400 !important;
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
-  line-height: 1;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  color: black !important;
+  text-transform: none !important;
+}
+
+.input-format {
+  margin: 3px 0.5ex !important;
+  padding: 0 !important;
+}
+
+.label-format {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .uses-per-timeframe {
@@ -199,4 +208,23 @@ select {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.cost-value {
+  font-weight: bold !important;
+}
+
+.lifetime-value {
+  font-weight: bold !important;
+}
+
+.use-value {
+  font-weight: bold !important;
+  text-align: right;
+  display: inline-block;
+  width: 3ch;
+}
+
+.text-value {
+  font-weight: bold !important;
 }

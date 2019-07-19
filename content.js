@@ -190,7 +190,8 @@ seasons.map(season => {
   input.name = "season";
   input.id = season;
   input.value = season;
-  label.classList.add('text-format');
+  input.classList.add('input-format');
+  label.classList.add('text-format', 'label-format');
   input.onchange = () => {
     selectSeasons = document.querySelectorAll('input[type="checkbox"]:checked')
       .length;
@@ -240,7 +241,7 @@ let lifetimeFor = document.createElement("span");
 lifetimeFor.textContent = "for ";
 let lifetimeValue = document.createElement("span");
 lifetimeValue.textContent = lifetimeSlider.value;
-lifetimeValue.classList.add('Text-value')
+lifetimeValue.classList.add('text-value')
 let lifetimeYears = document.createElement("span");
 lifetimeYears.textContent = " years";
 lifetimeYears.classList.add('lifetimeYears');
