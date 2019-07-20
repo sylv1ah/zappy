@@ -16,6 +16,19 @@ toggleButton.onmouseup = () => {
 toggleButton.onclick = () => {
   toggleButton.classList.toggle("disabled");
   toggleButton.classList.toggle("enabled");
-  toggleButton.textContent = toggleButton.classList.contains("disabled") ? "Enable Zappy" : "Disable Zappy";
-
+  if (toggleButton.classList.contains("disabled")) {
+    sendState("disabled");
+    toggleButton.textContent = "Enable Zappy";
+  } else {
+    sendState("enabled");
+    toggleButton.textContent = "Disable Zappy";
+  }
 };
+
+const sendState = (currentState) => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      state: currentState
+    });
+  });
+}
