@@ -6,48 +6,51 @@
 const title = document.title;
 
 const itemLifetimes = {
-  "dress": 3,
-  "lingerie": 5,
-  "heels":8,
-  "trousers":19,
-  "swimwear":12,
-  "activewear":34,
-  "coat": 54,
-  "jacket":54,
-  "workwear":65,
-  "shoes":35,
-  "skirt":38,
-  "jumper":54,
-  "sweater":54,
-  "shorts":46,
-  "trainers":91,
-  "nightwear":40,
-  "pyjamas": 40,
-  "t-shirt":95,
-  "underwear":36,
-  "jeans":298
-}
+  dress: 3,
+  lingerie: 5,
+  heels: 8,
+  trousers: 19,
+  swimwear: 12,
+  activewear: 34,
+  coat: 54,
+  jacket: 54,
+  workwear: 65,
+  shoes: 35,
+  skirt: 38,
+  jumper: 54,
+  sweater: 54,
+  shorts: 46,
+  trainers: 91,
+  nightwear: 40,
+  pyjamas: 40,
+  "t-shirt": 95,
+  underwear: 36,
+  jeans: 298
+};
 
 const itemArray = Object.keys(itemLifetimes);
-const pageItem = itemArray.filter(word => title.toLowerCase().includes(word)).toString();
+const pageItem = itemArray
+  .filter(word => title.toLowerCase().includes(word))
+  .toString();
 const itemLifetime = itemLifetimes[pageItem];
 
-
-// SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES 
+// SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES
 let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
-if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS 
-if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo 
-if (price.length == 0) price = document.getElementsByClassName('price-discount'); // Shein 
-if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
-if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
+if (price.length == 0) price = document.getElementsByClassName("current-price"); // ASOS
+if (price.length == 0) price = document.getElementsByClassName("product-price"); // ZARA - not working yet
+if (price.length == 0) price = document.getElementsByClassName("price-sales"); // Uniqlo
+if (price.length == 0)
+  price = document.getElementsByClassName("price-discount"); // Shein
+if (price.length == 0) price = document.getElementsByClassName("on-sale"); // Macy's sale items
+if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // Nordstrom
 
 console.log(price[0].innerText);
 
-const itemCost = parseFloat(price[0].innerText.replace(/[£$A-Z]/gi, "")).toFixed(2);
+const itemCost = parseFloat(
+  price[0].innerText.replace(/[£$A-Z]/gi, "")
+).toFixed(2);
 console.log("itemcost =", itemCost);
-
 
 //COST PER WEAR
 let costPW = document.createElement("div");
@@ -66,7 +69,7 @@ const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
   if (selectSeasons === 0 || timeFrame === 365) {
     selectSeasons = 4;
   }
-  console.log('Seasons', selectSeasons);
+  console.log("Seasons", selectSeasons);
   lifetimeDays = lifetime * 365;
   let wearAmount =
     lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
@@ -93,16 +96,15 @@ slider.value = Math.round(slider.max / 2);
 slider.timeframe = "week";
 slider.classList.add("slider");
 
-
 let usesPer = document.createElement("p");
-usesPer.classList.add('text-format');
+usesPer.classList.add("text-format");
 
 let useValue = document.createElement("span");
-useValue.classList.add('use-value', 'text-format');
+useValue.classList.add("use-value", "text-format");
 useValue.textContent = slider.value;
 
 let averageWear = document.createElement("span");
-averageWear.textContent = ' uses per ';
+averageWear.textContent = " uses per ";
 
 usesPer.appendChild(useValue);
 usesPer.appendChild(averageWear);
@@ -110,13 +112,9 @@ usesPer.appendChild(averageWear);
 const changeSliderValue = value => {
   useValue.textContent = slider.value;
   value == 1
-    ? (averageWear.textContent = ' use per ')
-    : (averageWear.textContent = ' uses per ');
+    ? (averageWear.textContent = " use per ")
+    : (averageWear.textContent = " uses per ");
 };
-
-
-
-
 
 slider.oninput = () => {
   changeSliderValue(slider.value);
@@ -151,33 +149,35 @@ usesPerTimeframe.appendChild(usesPer);
 usesPerTimeframe.appendChild(timeFrameSelect);
 usesPerTimeframe.appendChild(infoButton);
 
-
 const convertUses = (current, target, value) => {
   return current === "week"
     ? target === "month"
       ? (value / 7) * 30
       : target === "year"
-        ? (value / 7) * 365
-        : value
+      ? (value / 7) * 365
+      : value
     : current === "month"
-      ? target === "week"
-        ? (value / 30) * 7
-        : target === "year"
-          ? (value / 30) * 365
-          : value
-      : current === "year"
-        ? target === "week"
-          ? (value / 365) * 7
-          : target === "month"
-            ? (value / 365) * 30
-            : value
-        : value;
+    ? target === "week"
+      ? (value / 30) * 7
+      : target === "year"
+      ? (value / 30) * 365
+      : value
+    : current === "year"
+    ? target === "week"
+      ? (value / 365) * 7
+      : target === "month"
+      ? (value / 365) * 30
+      : value
+    : value;
 };
 
 timeFrameSelect.onchange = () => {
-  seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+  seasonSelectorText.disabled = timeFrameSelect.value === "year" ? true : false;
 
-  if (seasonCheckboxes.style.display = "block" && timeFrameSelect.value === 'year') {
+  if (
+    (seasonCheckboxes.style.display =
+      "block" && timeFrameSelect.value === "year")
+  ) {
     seasonCheckboxes.style.display = "none";
   }
 
@@ -226,8 +226,8 @@ seasons.map(season => {
   input.name = "season";
   input.id = season;
   input.value = season;
-  input.classList.add('input-format');
-  label.classList.add('text-format', 'label-format');
+  input.classList.add("input-format");
+  label.classList.add("text-format", "label-format");
   input.onchange = () => {
     selectSeasons = document.querySelectorAll('input[type="checkbox"]:checked')
       .length;
@@ -265,7 +265,7 @@ let lifetimeSlider = document.createElement("input");
 
 lifetimeSlider.type = "range";
 lifetimeSlider.min = 1;
-lifetimeSlider.max = 5;
+lifetimeSlider.max = 10;
 lifetimeSlider.value = Math.round(lifetimeSlider.max / 2);
 lifetimeSlider.classList.add("slider");
 lifetimeSlider.classList.add("lifetime-slider");
@@ -277,28 +277,24 @@ let lifetimeFor = document.createElement("span");
 lifetimeFor.textContent = "for ";
 let lifetimeValue = document.createElement("span");
 lifetimeValue.textContent = lifetimeSlider.value;
-lifetimeValue.classList.add('text-value')
+lifetimeValue.classList.add("text-value");
 let lifetimeYears = document.createElement("span");
 lifetimeYears.textContent = " years";
-lifetimeYears.classList.add('lifetimeYears');
+lifetimeYears.classList.add("lifetimeYears");
 
 lifetimeText.appendChild(lifetimeFor);
 lifetimeText.appendChild(lifetimeValue);
 lifetimeText.appendChild(lifetimeYears);
 
-let lifetime = document.createElement('section');
+let lifetime = document.createElement("section");
 lifetime.appendChild(lifetimeSlider);
 lifetime.appendChild(lifetimeText);
-lifetime.classList.add('lifetime');
-
-
+lifetime.classList.add("lifetime");
 
 const changeLifetimeSliderValue = value => {
   lifetimeValue.textContent = value;
   if (value == 1) {
     lifetimeYears.textContent = ` year`;
-  } else if (value == 5) {
-    lifetimeYears.textContent = `+ years`;
   } else {
     lifetimeYears.textContent = ` years`;
   }
