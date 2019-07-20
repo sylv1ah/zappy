@@ -1,6 +1,7 @@
 // CONNECT CONTENT SCRIPT TO EXTENSION INFO
-//look for name of clothing item in title.
-//if found, retrieve average lifetime of item from object.
+//look for name of clothing item in title. done.
+//if found, retrieve average lifetime of item from object. done.
+// calc weekly use and input into zappy bar
 // if not, stop rest of extension from running?
 
 const title = document.title;
@@ -75,8 +76,8 @@ const pageItemArray = itemArray.filter((word) =>
 );
 const pageItem = pageItemArray[0];
 console.log(pageItem);
-const itemLifetime = itemLifetimes[pageItem];
-console.log('lifetime =', itemLifetime);
+const weeklyItemUse = itemLifetimes[pageItem] / 104 // if data figure is number of uses over 2 years
+console.log('lifetime =', weeklyItemUse);
 
 // SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES
 let price = document.getElementsByClassName('css-b9fpep'); // NIKE price span class
@@ -88,8 +89,6 @@ if (price.length == 0)
 if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
 if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
 if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
-
-console.log(price[0].innerText);
 
 const itemCost = parseFloat(
 	price[0].innerText.replace(/[£$A-Z]/gi, '')
@@ -134,9 +133,10 @@ window.onload = () => {
 let slider = document.createElement('input');
 
 slider.type = 'range';
-slider.min = 1;
+slider.min = 0;
 slider.max = 7;
-slider.value = Math.round(slider.max / 2);
+slider.step = 0.01;
+slider.value = weeklyItemUse || Math.round(slider.max / 2);
 slider.timeframe = 'week';
 slider.classList.add('slider');
 
@@ -154,7 +154,9 @@ usesPer.appendChild(useValue);
 usesPer.appendChild(averageWear);
 
 const changeSliderValue = (value) => {
-	useValue.textContent = slider.value;
+  slider.step = 1;
+  useValue.textContent = slider.value;
+  //value 0 should change text to "less than 1 uses per"
 	value == 1
 		? (averageWear.textContent = ' use per ')
 		: (averageWear.textContent = ' uses per ');
@@ -174,6 +176,11 @@ slider.oninput = () => {
 //INFO BUTTON
 let infoButton = document.createElement('button');
 infoButton.classList.add('info-button');
+
+
+
+
+
 
 //TIME FRAME SELECT
 let timeFrameObj = {
