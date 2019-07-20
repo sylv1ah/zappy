@@ -4,12 +4,21 @@
   "name": "hackathon-homies",
   "description": "slow fashion, quick maths",
   "author": "Joko Sanyang, Freddie Preece, Sylvia Hoang",
-  "permissions": ["storage", "activeTab", "declarativeContent", "tabs"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "declarativeContent",
+    "tabs"
+  ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
-  "web_accessible_resources": ["assets/*.png"],
+  "web_accessible_resources": [
+    "assets/*.png"
+  ],
   "icons": {
     "16": "./assets/terrapin16.png",
     "48": "./assets/terrapin48.png",
@@ -18,7 +27,6 @@
   "page_action": {
     "default_popup": "popup.html"
   },
-  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [
@@ -83,8 +91,12 @@
         "https://*/*wellingtons*"
       ],
       "run_at": "document_idle",
-      "css": ["style.css"],
-      "js": ["content.js"]
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ]
 }
