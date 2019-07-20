@@ -58,17 +58,24 @@ let items = ["anorak",
   "vest",
   "wellingtons"];
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
-    chrome.declarativeContent.onPageChanged.addRules([
-      {
-        conditions: [new chrome.declarativeContent.PageStateMatcher(
+items.forEach(item => {
+  chrome.runtime.onInstalled.addListener(() => {
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
+      chrome.declarativeContent.onPageChanged.addRules(
+        [
           {
-            pageUrl: { urlContains: `${items.forEach(item => item)}` },
-          })],
-        actions: [new chrome.declarativeContent.ShowPageAction()]
-      }
-    ]);
+            conditions: [
+              new chrome.declarativeContent.PageStateMatcher(
+                {
+                  pageUrl: { urlContains: item },
+                }),
+            ],
+            actions: [new chrome.declarativeContent.ShowPageAction()]
+          }
+        ]
+      );
+    });
   });
-});
+})
+
 
