@@ -1,16 +1,21 @@
-let changeColor = document.getElementById("changeColor");
+let toggleButton = document.getElementById("toggle");
 
-chrome.storage.sync.get("color", data => {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute("value", data.color);
-});
+// chrome.storage.sync.get("color", data => {
+//   changeColor.style.backgroundColor = data.color;
+//   changeColor.setAttribute("value", data.color);
+// });
 
-changeColor.onclick = element => {
-  let color = element.target.value;
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    chrome.tabs.executeScript(tabs[0].id, {
-      code:
-        'document.getElementsByTagName("h1")[0].style.color = "' + color + '";'
-    });
-  });
+toggleButton.onmousedown = () => {
+  toggleButton.classList.toggle("clicked");
+}
+
+toggleButton.onmouseup = () => {
+  toggleButton.classList.toggle("clicked");
+}
+
+toggleButton.onclick = () => {
+  toggleButton.classList.toggle("disabled");
+  toggleButton.classList.toggle("enabled");
+  toggleButton.textContent = toggleButton.classList.contains("disabled") ? "Enable Zappy" : "Disable Zappy";
+
 };
