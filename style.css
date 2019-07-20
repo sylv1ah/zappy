@@ -1,6 +1,6 @@
 .sticky {
   width: 100vw;
-  height: 5vh;
+  height: 50px;
   position: fixed;
   top: 0;
   left: 0;
@@ -39,7 +39,7 @@
   width: 50px;
   height: 50px;
   border: 0;
-  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
+  background: url("chrome-extension://cehloeahedibkibbccmeeacpbkfppmjc/assets/terrapin48.png")
     no-repeat center;
   background-size: contain;
   cursor: pointer;
@@ -50,7 +50,7 @@
   width: 50px;
   height: 50px;
   border: 0;
-  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
+  background: url("chrome-extension://cehloeahedibkibbccmeeacpbkfppmjc/assets/terrapin48.png")
     no-repeat center;
   background-size: contain;
   cursor: pointer;
@@ -58,32 +58,33 @@
 }
 
 .lifetime-slider::-webkit-slider-thumb {
-  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
+  background-image: url("chrome-extension://cehloeahedibkibbccmeeacpbkfppmjc/assets/terrapin-blue48.png");
 }
 
 .lifetime-slider::-moz-range-thumb {
-  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
+  background-image: url("chrome-extension://cehloeahedibkibbccmeeacpbkfppmjc/assets/terrapin-blue48.png");
 }
 
 body {
   padding-top: 100px;
 }
 
-select {
-  border: none;
-  font-size: 1em;
-  padding: 0.2em;
-  margin: 0 0.5em;
-  border-radius: 0px;
-  border-width: none;
-  border-color: none;
-  border-image: none;
-  width: 6em;
-  -webkit-appearance: none;
-  appearance: none;
+#timeFrameSelect {
+  border: none !important;
+  font-size: 16px !important;
+  padding: 0.2em !important;
+  margin: 0 0.5em !important;
+  border-radius: 0px !important;
+  border-width: none !important;
+  border-color: none !important;
+  border-image: none !important;
+  width: 5em !important;
+  height: 1.5em !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
   background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
     no-repeat right #ffffff;
-  background-position-x: 4.5em;
+  background-position-x: 3.5em !important;
   cursor: pointer;
 }
 
@@ -119,8 +120,17 @@ select {
   letter-spacing: normal !important;
   color: black !important;
   text-transform: none !important;
+  margin: 0 !important;
 }
-
+.season-selector button:focus,
+.season-selector button:hover,
+.info-button:hover,
+.info-button:focus,
+.close:hover,
+.close:focus {
+  background-color: #ffffff !important;
+  color: black !important;
+}
 .season-selector-text {
   width: 10em;
   background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
@@ -144,7 +154,7 @@ select {
 }
 
 .newBody {
-  transform: translateY(5vh) !important;
+  transform: translateY(50px) !important;
   transition-property: transform;
   transition-duration: 350ms;
   min-height: 100%;
@@ -156,24 +166,25 @@ select {
   background-color: transparent;
   cursor: pointer;
   font-size: 25.6px;
-  margin: 0.2em;
-  padding: 0em;
+  margin: 0.2em !important;
+  padding: 0em !important;
   display: flex;
   align-items: center;
   color: black;
 }
 
 .info-button {
-  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/info32.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  background-color: transparent;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  padding: 0em;
-  border: 0px;
+  background-image: url("chrome-extension://cehloeahedibkibbccmeeacpbkfppmjc/assets/info32.png");
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-color: transparent !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  padding: 0em !important;
+  border: 0px !important;
+  margin: 0 !important;
 }
 
 .text-format {
@@ -186,6 +197,7 @@ select {
   letter-spacing: normal !important;
   color: black !important;
   text-transform: none !important;
+  margin: 0 !important;
 }
 
 .input-format {
