@@ -14,6 +14,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { runningTotal, baseCurrency, newCurrency } = request;
+
   if (request.contentScriptQuery == "getConversion") {
     console.log("runningTotal:", runningTotal);
     console.log("baseCurrency:", baseCurrency);

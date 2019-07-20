@@ -8,13 +8,72 @@ if (price.length == 0) price = document.getElementsByClassName("on-sale"); // Ma
 if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale
 if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // Nordstrom
 
-// console.log(price[0].innerText);
+// Currency Extraction
 
-const itemCost = parseFloat(
-  price[0].innerText.replace(/[£$A-Z]/gi, "")
-).toFixed(2);
+let currencyIDList = {
+  "USD": '$',
+  "GBP": '£',
+  "AUD": '$',
+  "BGN": 'лв.',
+  "BRL": 'R$',
+  "CAD": 'C$',
+  "CHF": 'Fr.',
+  "CNY": '¥',
+  "CZK": 'Kč',
+  "DKK": 'Kr.',
+  "EUR": '€',
+  "GBP": "£",
+  "HKD": 'HK$',
+  "HRK": 'kn',
+  "HUF": 'Ft',
+  "IDR": 'Rp',
+  "ILS": '₪',
+  "INR": '₹',
+  "ISK": 'Íkr/kr',
+  "JPY": '円',
+  "KRW": '₩',
+  "MXN": 'Mex$',
+  "MYR": 'RM',
+  "NOK": 'kr',
+  "NZD": '$',
+  "PHP": '₱',
+  "PLN": 'zł',
+  "RON": 'lei',
+  "RUB": '₽',
+  "SEK": 'kr',
+  "SGD": 'S$',
+  "THB": '฿',
+  "TRY": '₺',
+  "ZAR": 'R'
+}
 
-// console.log("itemcost =", itemCost);
+const checkCurrencyCode = (priceText) => {
+  return Object.keys(currencyIDList)
+    .map(currencyCode => priceText.includes(currencyCode) ? [currencyCode, currencyIDList[currencyCode]] : null)
+    .filter(Boolean)[0];
+}
+
+const checkCurrencySymbol = (priceText) => {
+  return Object.keys(currencyIDList)
+    .map(currencyCode => priceText.includes(currencyIDList[currencyCode]) ? [currencyCode, currencyIDList[currencyCode]] : null)
+    .filter(Boolean)[0];
+  // Need to deal with edge cases, multiple dollars
+}
+
+const currencyDetails = checkCurrencyCode(price[0].innerText) || checkCurrencySymbol(price[0].innerText);
+
+let code = currencyDetails[0] || null;
+let symbol = currencyDetails[1] || null;
+
+const itemCost = parseFloat((price[0].innerText)
+  .replace(/[A-Z]/gi, "")
+  .replace(code, "")
+  .replace(symbol, ""))
+  .toFixed(2);
+
+console.log('Currency Details:', currencyDetails);
+console.log('Stripped Item Cost:', itemCost);
+
 
 //COST PER WEAR
 let costPW = document.createElement("div");
@@ -316,7 +375,7 @@ currencyList.map(currency => {
 
 //CURRENCY CONVERT
 let baseCurrency = "GBP";
-// let newCurrency = "USD";
+//change this depending on page scrape
 
 let currencyConverterFunction = (selectedCurrency, runningTotal) => {
   return chrome.runtime.sendMessage(
@@ -327,8 +386,8 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
       newCurrency: selectedCurrency
     },
     response => {
-      let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount).toFixed(2);
-      costPW.textContent = `Cost per wear: £${(convertedCost)}`;
+      let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount);
+      costPW.textContent = `Cost per wear: ${(convertedCost.toLocaleString('en-GB', { style: 'currency', currency: selectedCurrency, currencyDisplay: 'symbol' }))}`;
     }
   );
 };
