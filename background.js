@@ -64,10 +64,8 @@ chrome.runtime.onInstalled.addListener(() => {
       {
         conditions: [new chrome.declarativeContent.PageStateMatcher(
           {
-            pageUrl: {
-              urlContains:
-                items.forEach(item => item),
-            })],
+            pageUrl: { urlContains: `${items.forEach(item => item)}` },
+          })],
         actions: [new chrome.declarativeContent.ShowPageAction()]
       }
     ]);
