@@ -3,17 +3,25 @@
 //if found, retrieve average lifetime of item from object.
 // if not, stop rest of extension from running?
 
+let zappyState = 'enabled';
 
-chrome.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.state === 'enabled') {
     document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
     document.body.classList.add("newBody");
   } else if (message.state === 'disabled') {
     zappyBar.remove();
     document.body.classList.remove("newBody");
+  } else if (message.request) {
+    sendResponse({ state: zappyState });
   }
 });
 
+const sendState = (currentState) => {
+  chrome.runtime.sendMessage({
+    state: currentState
+  });
+}
 
 const title = document.title;
 
@@ -338,6 +346,8 @@ closeButton.classList.add("close");
 closeButton.addEventListener("click", () => {
   zappyBar.remove();
   document.body.classList.remove("newBody");
+  sendState('disabled');
+  zappyState = 'disabled';
 });
 
 //APPEND EVERYTHING TO BAR

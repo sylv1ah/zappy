@@ -16,9 +16,9 @@ button {
     color: inherit;
     background: none;
     cursor: pointer;
-    padding: 5px 20px;
+    padding: 5px 10px;
     display: inline-block;
-    margin: 3px 6px;
+    margin: 3px 6px 9px 6px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
@@ -57,7 +57,7 @@ button {
     top: 2px;
 }
 
-.clicked {
+/* .clicked {
     box-shadow: 0 0px var(--box-shadow-color) !important;
     top: 6px !important;
-}
+} */
