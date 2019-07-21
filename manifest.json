@@ -8,13 +8,18 @@
     "storage",
     "activeTab",
     "declarativeContent",
-    "https://currency-converter5.p.rapidapi.com"
+    "https://currency-converter5.p.rapidapi.com",
+    "tabs"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
   },
-  "web_accessible_resources": ["assets/*.png"],
+  "web_accessible_resources": [
+    "assets/*.png"
+  ],
   "icons": {
     "16": "./assets/terrapin16.png",
     "48": "./assets/terrapin48.png",
@@ -23,7 +28,6 @@
   "page_action": {
     "default_popup": "popup.html"
   },
-  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [
@@ -45,6 +49,7 @@
         "https://*/*gloves*",
         "https://*/*hat*",
         "https://*/*high-heels*",
+        "https://*/*hoodie*",
         "https://*/*jacket*",
         "https://*/*jeans*",
         "https://*/*jumpsuit*",
@@ -56,7 +61,7 @@
         "https://*/*nightie*",
         "https://*/*overalls*",
         "https://*/*overcoat*",
-        "https://*/*pullover*",
+        "https://*/*pants*",
         "https://*/*pyjamas*",
         "https://*/*raincoat*",
         "https://*/*sandals*",
@@ -84,12 +89,17 @@
         "https://*/*trousers*",
         "https://*/*t-shirt",
         "https://*/*underpants",
+        "https://*/*underwear*",
         "https://*/*vest*",
         "https://*/*wellingtons*"
       ],
       "run_at": "document_idle",
-      "css": ["style.css"],
-      "js": ["content.js"]
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "content.js"
+      ]
     }
   ]
 }

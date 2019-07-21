@@ -1,14 +1,15 @@
-let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
-if (price.length == 0) price = document.getElementsByClassName("current-price"); // ASOS
-if (price.length == 0) price = document.getElementsByClassName("product-price"); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName("price-sales"); // Uniqlo
+// SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES
+let price = document.getElementsByClassName('css-b9fpep'); // NIKE price span class
+if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS
+if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
+if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo
 if (price.length == 0)
-  price = document.getElementsByClassName("price-discount"); // Shein
-if (price.length == 0) price = document.getElementsByClassName("on-sale"); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale
-if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // Nordstrom
+  price = document.getElementsByClassName('price-discount'); // Shein
+if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
+if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
 
-// Currency Extraction
+// CURRENCY EXTRACTION
 
 let currencyIDList = {
   "AUD": ['AU$', 'A$'],
@@ -74,9 +75,118 @@ const itemCost = parseFloat((price[0].innerText)
 console.log('Currency Details:', currencyDetails);
 console.log('Stripped Item Cost:', itemCost);
 
+// CONNECT CONTENT SCRIPT TO EXTENSION INFO
+let zappyState = 'enabled';
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.state === 'enabled') {
+    document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
+    document.body.classList.add("newBody");
+  } else if (message.state === 'disabled') {
+    zappyBar.remove();
+    document.body.classList.remove("newBody");
+  } else if (message.request) {
+    sendResponse({ state: zappyState });
+  }
+});
+
+const sendState = (currentState) => {
+  chrome.runtime.sendMessage({
+    state: currentState
+  });
+}
+
+
+//SCRAPE AND MATCH ITEM TYPE FROM PAGE TITLE
+const title = document.title;
+
+const itemLifetimes = {
+  activewear: 34,
+  anorak: 14,
+  bikini: 12,
+  blazer: 65,
+  blouse: 65,
+  boots: 35,
+  boxers: 36,
+  bra: 36,
+  briefs: 36,
+  cap: 24,
+  cardigan: 54,
+  coat: 54,
+  dress: 3,
+  'dressing gown': 37,
+  gloves: 23,
+  hat: 24,
+  heels: 8,
+  hoodie: 54,
+  jacket: 54,
+  jeans: 298,
+  jumper: 54,
+  jumpsuit: 4,
+  kimono: 15,
+  knickers: 36,
+  leggings: 19,
+  lingerie: 5,
+  miniskirt: 38,
+  nightwear: 40,
+  overalls: 4,
+  panties: 36,
+  pants: 19,
+  playsuit: 4,
+  pyjamas: 40,
+  raincoat: 14,
+  sandals: 20,
+  shirt: 95,
+  shoes: 35,
+  shorts: 46,
+  skirt: 38,
+  slippers: 20,
+  sneakers: 91,
+  stilettos: 8,
+  stockings: 10,
+  suit: 12,
+  sweater: 54,
+  sweatshirt: 54,
+  swimwear: 12,
+  'swimming costume': 12,
+  'swimming trunks': 12,
+  't-shirt': 95,
+  thong: 36,
+  tie: 23,
+  tights: 10,
+  top: 95,
+  tracksuit: 34,
+  trainers: 91,
+  trousers: 19,
+  underpants: 36,
+  underwear: 36,
+  vest: 36,
+  workwear: 65
+};
+
+const itemArray = Object.keys(itemLifetimes);
+const pageItemArray = itemArray.filter((word) =>
+  title.toLowerCase().includes(word)
+);
+const pageItem = pageItemArray[0];
+const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number of uses over 2 years
+
 
 //COST PER WEAR
-let costPW = document.createElement("div");
+let costPW = document.createElement('div');
+costPW.classList.add('text-format');
+
+let costValue = document.createElement('span');
+costValue.classList.add('cost-value', 'text-format');
+
+
+
+let perWear = document.createElement('span');
+perWear.textContent = 'Cost per wear: ';
+perWear.classList.add('text-format');
+
+costPW.appendChild(perWear);
+costPW.appendChild(costValue);
 
 const CPW = (
   itemCost,
@@ -114,22 +224,36 @@ window.onload = () => {
 };
 
 //SLIDER
-let slider = document.createElement("input");
+let slider = document.createElement('input');
 
-slider.type = "range";
-slider.min = 1;
+slider.type = 'range';
+slider.min = 0;
 slider.max = 7;
-slider.value = Math.round(slider.max / 2);
-slider.timeframe = "week";
-slider.classList.add("slider");
+slider.step = 0.01;
+slider.value = weeklyItemUse || Math.round(slider.max / 2);
+slider.timeframe = 'week';
+slider.classList.add('slider');
 
-let averageWear = document.createElement("p");
-averageWear.textContent = `${slider.value} uses per`;
+let usesPer = document.createElement('p');
+usesPer.classList.add('text-format');
 
-const changeSliderValue = value => {
-  return value == 1
-    ? (averageWear.textContent = `${value} use per`)
-    : (averageWear.textContent = `${value} uses per`);
+let useValue = document.createElement('span');
+useValue.classList.add('use-value', 'text-format');
+useValue.textContent = slider.value;
+
+let averageWear = document.createElement('span');
+averageWear.textContent = ' uses per ';
+
+usesPer.appendChild(useValue);
+usesPer.appendChild(averageWear);
+
+const changeSliderValue = (value) => {
+  slider.min = 1;
+  slider.step = 1;
+  useValue.textContent = slider.value;
+  value == 1
+    ? (averageWear.textContent = ' use per ')
+    : (averageWear.textContent = ' uses per ');
 };
 
 slider.oninput = () => {
@@ -144,6 +268,15 @@ slider.oninput = () => {
   );
 };
 
+//INFO BUTTON
+const info = document.createElement('div');
+info.classList.add('info-button');
+const infoText = document.createElement('span');
+infoText.classList.add('info-text');
+infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per ${slider.timeframe}.`;
+info.appendChild(infoText);
+
+
 //TIME FRAME SELECT
 let timeFrameObj = {
   week: 7,
@@ -151,39 +284,47 @@ let timeFrameObj = {
   year: 365
 };
 
-let timeFrameSelect = document.createElement("select");
-timeFrameSelect.id = "timeFrameSelect";
+let timeFrameSelect = document.createElement('select');
+timeFrameSelect.id = 'timeFrameSelect';
+timeFrameSelect.classList.add('text-format');
+
+let usesPerTimeframe = document.createElement('section');
+usesPerTimeframe.classList.add('uses-per-timeframe');
+usesPerTimeframe.appendChild(slider);
+usesPerTimeframe.appendChild(usesPer);
+usesPerTimeframe.appendChild(timeFrameSelect);
+usesPerTimeframe.appendChild(info);
 
 const convertUses = (current, target, value) => {
-  return current === "week"
-    ? target === "month"
+  return current === 'week'
+    ? target === 'month'
       ? (value / 7) * 30
-      : target === "year"
+      : target === 'year'
         ? (value / 7) * 365
         : value
-    : current === "month"
-      ? target === "week"
+    : current === 'month'
+      ? target === 'week'
         ? (value / 30) * 7
-        : target === "year"
+        : target === 'year'
           ? (value / 30) * 365
           : value
-      : current === "year"
-        ? target === "week"
+      : current === 'year'
+        ? target === 'week'
           ? (value / 365) * 7
-          : target === "month"
+          : target === 'month'
             ? (value / 365) * 30
             : value
         : value;
 };
 
 timeFrameSelect.onchange = () => {
-  seasonSelectorText.disabled = timeFrameSelect.value === "year" ? true : false;
+  seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
 
   if (
     (seasonCheckboxes.style.display =
-      "block" && timeFrameSelect.value === "year")
+      'block' && timeFrameSelect.value === 'year')
   ) {
-    seasonCheckboxes.style.display = "none";
+    seasonCheckboxes.style.display = 'none';
   }
 
   //disable select options for seasons
@@ -192,6 +333,7 @@ timeFrameSelect.onchange = () => {
   slider.value = Math.round(
     convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
   );
+  infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
   slider.timeframe = timeFrameSelect.value;
   slider.max = timeFrameObj[timeFrameSelect.value];
   changeSliderValue(slider.value);
@@ -200,34 +342,29 @@ timeFrameSelect.onchange = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value,
-    currencySelect.value
+    lifetimeSlider.value
   );
+
 };
 
-Object.keys(timeFrameObj).map(key => {
-  option = document.createElement("option");
+Object.keys(timeFrameObj).map((key) => {
+  option = document.createElement('option');
   option.value = key;
   option.text = key;
   timeFrameSelect.appendChild(option);
 });
 
-//INFO BUTTON
-let infoButton = document.createElement("button");
-infoButton.textContent = "i";
-infoButton.classList.add("info-button");
-
 //SEASON CHECKBOXES
-let seasons = ["spring", "summer", "autumn", "winter"];
+let seasons = ['spring', 'summer', 'autumn', 'winter'];
 let selectSeasons = 0;
-let seasonSelector = document.createElement("div");
-seasonSelector.classList.add("season-selector");
-let seasonSelectorText = document.createElement("button");
-seasonSelectorText.classList.add("season-selector-text");
-seasonSelectorText.textContent = "Choose seasons:";
+let seasonSelector = document.createElement('div');
+seasonSelector.classList.add('season-selector');
+let seasonSelectorText = document.createElement('button');
+seasonSelectorText.classList.add('season-selector-text', 'text-format');
+seasonSelectorText.textContent = 'Choose seasons:';
 seasonSelector.appendChild(seasonSelectorText);
-let seasonCheckboxes = document.createElement("div");
-seasonCheckboxes.classList.add("season-checkboxes");
+let seasonCheckboxes = document.createElement('div');
+seasonCheckboxes.classList.add('season-checkboxes');
 seasonSelector.appendChild(seasonCheckboxes);
 
 seasons.map(season => {
@@ -259,36 +396,54 @@ seasons.map(season => {
 
 let expanded = false;
 
-seasonSelectorText.addEventListener("click", () => {
+seasonSelectorText.addEventListener('click', () => {
   if (!expanded) {
-    seasonCheckboxes.style.display = "block";
+    seasonCheckboxes.style.display = 'block';
     expanded = true;
   } else {
-    seasonCheckboxes.style.display = "none";
+    seasonCheckboxes.style.display = 'none';
     expanded = false;
   }
 });
 
 //LIFETIME SLIDER
 
-let lifetimeSlider = document.createElement("input");
+let lifetimeSlider = document.createElement('input');
 
-lifetimeSlider.type = "range";
+lifetimeSlider.type = 'range';
 lifetimeSlider.min = 1;
-lifetimeSlider.max = 5;
+lifetimeSlider.max = 10;
 lifetimeSlider.value = Math.round(lifetimeSlider.max / 2);
-lifetimeSlider.classList.add("slider");
+lifetimeSlider.classList.add('slider');
+lifetimeSlider.classList.add('lifetime-slider');
 
-let lifetime = document.createElement("p");
-lifetime.textContent = `for ${lifetimeSlider.value} years`;
+let lifetimeText = document.createElement('p');
+lifetimeText.classList.add('text-format');
 
-const changeLifetimeSliderValue = value => {
+let lifetimeFor = document.createElement('span');
+lifetimeFor.textContent = 'for ';
+let lifetimeValue = document.createElement('span');
+lifetimeValue.textContent = lifetimeSlider.value;
+lifetimeValue.classList.add('text-value');
+let lifetimeYears = document.createElement('span');
+lifetimeYears.textContent = ' years';
+lifetimeYears.classList.add('lifetimeYears');
+
+lifetimeText.appendChild(lifetimeFor);
+lifetimeText.appendChild(lifetimeValue);
+lifetimeText.appendChild(lifetimeYears);
+
+let lifetime = document.createElement('section');
+lifetime.appendChild(lifetimeSlider);
+lifetime.appendChild(lifetimeText);
+lifetime.classList.add('lifetime');
+
+const changeLifetimeSliderValue = (value) => {
+  lifetimeValue.textContent = value;
   if (value == 1) {
-    lifetime.textContent = `for ${value} year`;
-  } else if (value == 5) {
-    lifetime.textContent = `for ${value}+ years`;
+    lifetimeYears.textContent = ` year`;
   } else {
-    lifetime.textContent = `for ${value} years`;
+    lifetimeYears.textContent = ` years`;
   }
 };
 
@@ -311,25 +466,12 @@ closeButton.classList.add("close");
 closeButton.addEventListener("click", () => {
   zappyBar.remove();
   document.body.classList.remove("newBody");
+  sendState('disabled');
+  zappyState = 'disabled';
 });
 
 //CURRENCY SELECT
 let currencySelect = document.createElement("select");
-// let currencyList = ["GBP"];
-
-// let sendMessageToBackground = () => {
-//   chrome.runtime.sendMessage(
-//     {
-//       contentScriptQuery: "getCurrencyList",
-//       url: "https://currency-converter5.p.rapidapi.com/currency/list"
-//     },
-//     response => {
-//       console.log("currencies in content.js:", response.res);
-//       currencyList.push(Object.keys(response.res));
-//     }
-//   );
-// };
-
 let currencyCodeList = Object.keys(currencyIDList);
 
 currencyCodeList.map(currency => {
@@ -346,7 +488,6 @@ currencySelect.selectedIndex = currencyCodeList.indexOf(code);
 
 //CURRENCY CONVERT
 let baseCurrency = code;
-//change this depending on page scrape
 
 let currencyConverterFunction = (selectedCurrency, runningTotal) => {
   return chrome.runtime.sendMessage(
@@ -358,13 +499,14 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
     },
     response => {
       let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount);
-      costPW.textContent = `Cost per wear: ${symbol} ${convertedCost.toFixed(2)}`;
+      costValue.textContent = `${symbol} ${convertedCost.toFixed(2)}`;
     }
   );
 };
 
 let convertTo = document.createElement('p');
-convertTo.textContent = 'Convert to:'
+convertTo.classList.add('text-format');
+convertTo.textContent = 'Convert to:';
 
 currencySelect.onchange = () => {
   let newCurrency = currencySelect.value;
@@ -381,14 +523,10 @@ currencySelect.onchange = () => {
 };
 
 //APPEND EVERYTHING TO BAR
-let zappyBar = document.createElement("div");
-zappyBar.classList.add("sticky");
-zappyBar.appendChild(slider);
-zappyBar.appendChild(averageWear);
-zappyBar.appendChild(timeFrameSelect);
-zappyBar.appendChild(infoButton);
+let zappyBar = document.createElement('div');
+zappyBar.classList.add('sticky');
+zappyBar.appendChild(usesPerTimeframe);
 zappyBar.appendChild(seasonSelector);
-zappyBar.appendChild(lifetimeSlider);
 zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
 zappyBar.appendChild(convertTo);
@@ -396,4 +534,4 @@ zappyBar.appendChild(currencySelect);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
-document.body.classList.add("newBody");
+document.body.classList.add('newBody');
