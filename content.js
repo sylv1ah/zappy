@@ -226,7 +226,6 @@ window.onload = () => {
     lifetimeSlider.value,
     currencySelect.value
   );
-  sendMessageToBackground();
 };
 
 //SLIDER
@@ -533,38 +532,46 @@ currencySelect.onchange = () => {
 };
 
 //LANGUAGE TRANSLATE
-chrome.runtime.sendMessage(
-  {
-    contentScriptQuery: "getTranslation",
-    url: "https://translator.p.rapidapi.com/api/translate",
-    word: "uses per",
-    baseLang: "en",
-    targetLang: "es"
-  },
-  response => {
-    console.log("response in content.js:", response);
-  }
-);
 
-let chooseLangSelect = document.createElement("select");
-chooseLangSelect.classList.add("language-select");
-chooseLangSelect.classList.add("text-format");
-let languages = {
-  ENG: "en",
-  SPN: "es"
-};
+let allTextContents = [
+  averageWear,
+  infoText,
+  seasonSelectorText,
+  lifetimeFor,
+  lifetimeYears,
+  perWear,
+  convertTo
+];
 
-Object.keys(languages).map(key => {
-  option = document.createElement("option");
-  option.value = key;
-  option.text = key;
-  chooseLangSelect.appendChild(option);
+let userLanguage;
+if (window.navigator.languages) {
+  userLanguage = window.navigator.languages[2].slice(0, 2);
+} else {
+  userLanguage =
+    window.navigator.userLanguage.slice(0, 2) ||
+    window.navigator.language.slice(0, 2);
+}
+console.log("user language:", userLanguage);
+
+allTextContents.forEach(item => {
+  console.log("each text item:", item.textContent);
+  chrome.runtime.sendMessage(
+    {
+      contentScriptQuery: "getTranslation",
+      url: "https://translator.p.rapidapi.com/api/translate",
+      word: item.textContent,
+      targetLang: userLanguage
+    },
+    response => {
+      console.log("translation onchange:", response.res.ouput);
+      item.textContent = response.res.ouput;
+    }
+  );
 });
 
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
-zappyBar.appendChild(chooseLangSelect);
 zappyBar.appendChild(usesPerTimeframe);
 zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetime);

@@ -100,11 +100,9 @@ items.forEach(item => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const { url, word, baseLang, targetLang } = request;
+  const { url, word, targetLang } = request;
 
   if (request.contentScriptQuery == "getTranslation") {
-    // let newUrl = `https://translator.p.rapidapi.com/api/translate?&input=${word}&target=${targetLang}&source=${baseLang}`;
-    // console.log("URL:", newUrl);
     fetch(url, {
       method: "post",
       headers: {
@@ -112,7 +110,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: `input=${word}&target=${targetLang}&source=${baseLang}`
+      body: `input=${word}&target=${targetLang}`
     })
       .then(r => r.json())
       .then(result => {
