@@ -116,67 +116,67 @@ const sendState = (currentState) => {
 const title = document.title;
 
 const itemLifetimes = {
-  activewear: 34,
-  anorak: 14,
-  bikini: 12,
-  blazer: 65,
-  blouse: 65,
-  boots: 35,
-  boxers: 36,
-  bra: 36,
-  briefs: 36,
-  cap: 24,
-  cardigan: 54,
-  coat: 54,
-  dress: 3,
-  'dressing gown': 37,
-  gloves: 23,
-  hat: 24,
-  heels: 8,
-  hoodie: 54,
-  jacket: 54,
-  jeans: 298,
-  jumper: 54,
-  jumpsuit: 4,
-  kimono: 15,
-  knickers: 36,
-  leggings: 19,
-  lingerie: 5,
-  miniskirt: 38,
-  nightwear: 40,
-  overalls: 4,
-  panties: 36,
-  pants: 19,
-  playsuit: 4,
-  pyjamas: 40,
-  raincoat: 14,
-  sandals: 20,
-  shirt: 95,
-  shoes: 35,
-  shorts: 46,
-  skirt: 38,
-  slippers: 20,
-  sneakers: 91,
-  stilettos: 8,
-  stockings: 10,
-  suit: 12,
-  sweater: 54,
-  sweatshirt: 54,
-  swimwear: 12,
-  'swimming costume': 12,
-  'swimming trunks': 12,
-  't-shirt': 95,
-  thong: 36,
-  tie: 23,
-  tights: 10,
-  top: 95,
-  tracksuit: 34,
-  trainers: 91,
-  trouser: 19,
-  underpants: 36,
-  underwear: 36,
-  vest: 36,
-  workwear: 65
+	activewear: 34,
+	anorak: 14,
+	bikini: 12,
+	blazer: 65,
+	blouse: 65,
+	boots: 35,
+	boxers: 36,
+	bra: 36,
+	briefs: 36,
+	cap: 24,
+	cardigan: 54,
+	coat: 54,
+	dress: 3,
+	'dressing gown': 37,
+	gloves: 23,
+	hat: 24,
+	heels: 8,
+	hoodie: 54,
+	jacket: 54,
+	jeans: 298,
+	jumper: 54,
+	jumpsuit: 4,
+	kimono: 15,
+	knickers: 36,
+	leggings: 19,
+	lingerie: 5,
+	miniskirt: 38,
+	nightwear: 40,
+	overalls: 4,
+	panties: 36,
+	pants: 19,
+	playsuit: 4,
+	pyjamas: 40,
+	raincoat: 14,
+	sandals: 20,
+	shirt: 95,
+	shoes: 35,
+	shorts: 46,
+	skirt: 38,
+	slippers: 20,
+	sneakers: 91,
+	stilettos: 8,
+	stockings: 10,
+	suit: 12,
+	sweater: 54,
+	sweatshirt: 54,
+	swimwear: 12,
+	'swimming costume': 12,
+	'swimming trunks': 12,
+	't-shirt': 95,
+	thong: 36,
+	tie: 23,
+	tights: 10,
+	top: 95,
+	tracksuit: 34,
+	trainers: 91,
+	trouser: 19,
+	underpants: 36,
+	underwear: 36,
+	vest: 36,
+	workwear: 65
 };
 
 const itemArray = Object.keys(itemLifetimes);
@@ -208,20 +208,6 @@ const CPW = (
 	lifetime,
 	newCurrency
 ) => {
-<<<<<<< HEAD
-  if (selectSeasons === 0 || timeFrame === 365) {
-    selectSeasons = 4;
-  }
-  lifetimeDays = lifetime * 365;
-  let wearAmount =
-    lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
-  let adjustedCost = itemCost / wearAmount;
-
-  currencyConverterFunction(
-    newCurrency,
-    adjustedCost
-  );
-=======
 	if (selectSeasons === 0 || timeFrame === 365) {
 		selectSeasons = 4;
 	}
@@ -230,8 +216,10 @@ const CPW = (
 		lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
 	let adjustedCost = itemCost / wearAmount;
 
-	currencyConverterFunction(newCurrency, adjustedCost);
->>>>>>> master
+	currencyConverterFunction(
+		newCurrency,
+		adjustedCost
+	);
 };
 
 window.onload = () => {
@@ -336,61 +324,31 @@ const convertUses = (current, target, value) => {
 		? target === 'month'
 			? (value / 7) * 30
 			: target === 'year'
-			? (value / 7) * 365
-			: value
+				? (value / 7) * 365
+				: value
 		: current === 'month'
-		? target === 'week'
-			? (value / 30) * 7
-			: target === 'year'
-			? (value / 30) * 365
-			: value
-		: current === 'year'
-		? target === 'week'
-			? (value / 365) * 7
-			: target === 'month'
-			? (value / 365) * 30
-			: value
-		: value;
+			? target === 'week'
+				? (value / 30) * 7
+				: target === 'year'
+					? (value / 30) * 365
+					: value
+			: current === 'year'
+				? target === 'week'
+					? (value / 365) * 7
+					: target === 'month'
+						? (value / 365) * 30
+						: value
+				: value;
 };
 
 timeFrameSelect.onchange = () => {
-<<<<<<< HEAD
-  if (timeFrameSelect.value === 'year') {
-    seasonSelectorText.disabled = true;
-    seasonSelectorText.classList.add('disabled');
-  } else {
-    seasonSelectorText.disabled = false;
-    seasonSelectorText.classList.remove('disabled');
-  }
-
-  if (
-    (seasonCheckboxes.style.display =
-      'block' && timeFrameSelect.value === 'year')
-  ) {
-    seasonCheckboxes.style.display = 'none';
-  }
-
-  //disable select options for seasons
-  slider.max = 10000;
-  // We temporarily reassign the maximum value of the slider so it does not interfere with changing the slider's value.
-  slider.value = Math.round(
-    convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
-  );
-  infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
-  slider.timeframe = timeFrameSelect.value;
-  slider.max = timeFrameObj[timeFrameSelect.value];
-  changeSliderValue(slider.value);
-  CPW(
-    itemCost,
-    slider.value,
-    timeFrameObj[timeFrameSelect.value],
-    selectSeasons,
-    lifetimeSlider.value,
-    currencySelect.value
-  );
-
-=======
-	seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+	if (timeFrameSelect.value === 'year') {
+		seasonSelectorText.disabled = true;
+		seasonSelectorText.classList.add('disabled');
+	} else {
+		seasonSelectorText.disabled = false;
+		seasonSelectorText.classList.remove('disabled');
+	}
 
 	if (
 		(seasonCheckboxes.style.display =
@@ -405,7 +363,7 @@ timeFrameSelect.onchange = () => {
 	slider.value = Math.round(
 		convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
 	);
-	infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${changeInfoText(timeFrameSelect.value).toFixed(2)} times per ${timeFrameSelect.value}.`;
+	infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
 	slider.timeframe = timeFrameSelect.value;
 	slider.max = timeFrameObj[timeFrameSelect.value];
 	changeSliderValue(slider.value);
@@ -414,9 +372,10 @@ timeFrameSelect.onchange = () => {
 		slider.value,
 		timeFrameObj[timeFrameSelect.value],
 		selectSeasons,
-		lifetimeSlider.value
+		lifetimeSlider.value,
+		currencySelect.value
 	);
->>>>>>> master
+
 };
 
 Object.keys(timeFrameObj).map((key) => {
@@ -439,39 +398,12 @@ let seasonCheckboxes = document.createElement('div');
 seasonCheckboxes.classList.add('season-checkboxes');
 seasonSelector.appendChild(seasonCheckboxes);
 
-<<<<<<< HEAD
 seasons.map(season => {
-  input = document.createElement("input");
-  label = document.createElement("label");
-  label.classList.add('text-format');
-  input.type = "checkbox";
-  input.name = "season";
-  input.id = season;
-  input.value = season;
-  input.onchange = () => {
-    selectSeasons = document.querySelectorAll('input[type="checkbox"]:checked')
-      .length;
-    CPW(
-      itemCost,
-      slider.value,
-      timeFrameObj[timeFrameSelect.value],
-      selectSeasons,
-      lifetimeSlider.value,
-      currencySelect.value
-    );
-  };
-  label.htmlFor = season;
-  label.textContent = season;
-  checkbox = document.createElement("div");
-  checkbox.appendChild(input);
-  checkbox.appendChild(label);
-  seasonCheckboxes.appendChild(checkbox);
-=======
-seasons.map((season) => {
-	input = document.createElement('input');
-	label = document.createElement('label');
-	input.type = 'checkbox';
-	input.name = 'season';
+	input = document.createElement("input");
+	label = document.createElement("label");
+	label.classList.add('text-format');
+	input.type = "checkbox";
+	input.name = "season";
 	input.id = season;
 	input.value = season;
 	input.onchange = () => {
@@ -488,11 +420,10 @@ seasons.map((season) => {
 	};
 	label.htmlFor = season;
 	label.textContent = season;
-	checkbox = document.createElement('div');
+	checkbox = document.createElement("div");
 	checkbox.appendChild(input);
 	checkbox.appendChild(label);
 	seasonCheckboxes.appendChild(checkbox);
->>>>>>> master
 });
 
 let expanded = false;

@@ -1,131 +1,136 @@
 .sticky {
-	width: 100vw;
-	height: 50px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 9999;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #8ad0bb;
-	box-shadow: 0px 5px 40px 1px black;
-	font-family: 'futura-pt-n4', 'futura-pt', Tahoma, Geneva, Verdana, Arial,
-		sans-serif;
+  width: 100vw;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8ad0bb;
+  box-shadow: 0px 5px 40px 1px black;
+  font-family: "futura-pt-n4", "futura-pt", Tahoma, Geneva, Verdana, Arial,
+    sans-serif;
+}
+
+input[type="checkbox"] {
+  margin: 3px 0.5ex !important;
 }
 
 .slider {
-	-webkit-appearance: none;
-	width: 20vw;
-	height: 15px;
-	border-radius: 5px;
-	background: white;
-	box-shadow: 0px 1px 5px 1px inset;
-	outline: none;
-	/* opacity: 0.7; */
-	-webkit-transition: 0.2s;
-	transition: opacity 0.2s;
-	margin: 3em 1em;
+  -webkit-appearance: none;
+  width: 20vw;
+  height: 15px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0px 1px 5px 1px inset;
+  outline: none;
+  /* opacity: 0.7; */
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  margin: 3em 1em;
 }
 
 .lifetime-slider {
-	width: 10vw;
+  width: 10vw;
 }
 
 .slider::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	appearance: none;
-	width: 50px;
-	height: 50px;
-	border: 0;
-	background: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png') no-repeat center;
-	background-size: contain;
-	cursor: pointer;
-	/* margin: 0 0px 0 -10px; */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  border: 0;
+  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
+    no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  /* margin: 0 0px 0 -10px; */
 }
 
 .slider::-moz-range-thumb {
-	width: 50px;
-	height: 50px;
-	border: 0;
-	background: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png') no-repeat center;
-	background-size: contain;
-	cursor: pointer;
-	/* margin: 0 0px 0 -10px; */
+  width: 50px;
+  height: 50px;
+  border: 0;
+  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
+    no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  /* margin: 0 0px 0 -10px; */
 }
 
 .lifetime-slider::-webkit-slider-thumb {
-	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png');
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
 }
 
 .lifetime-slider::-moz-range-thumb {
-	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png');
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
 }
 
 body {
-	padding-top: 100px;
+  padding-top: 100px;
 }
-
 
 .text-format {
-	font-size: 16px !important;
-	font-family: Tahoma !important;
-	font-weight: 400 !important;
-	-webkit-font-smoothing: auto !important;
-	-moz-osx-font-smoothing: auto !important;
-	line-height: 1 !important;
-	letter-spacing: normal !important;
-	color: black !important;
-	text-transform: none !important;
-	margin: 0 !important;
+  font-size: 16px !important;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  color: black !important;
+  text-transform: none !important;
+  margin: 0 !important;
 }
 
-
 #timeFrameSelect {
-	border: none !important;
-	font-size: 16px !important;
-	padding: 0.2em !important;
-	margin: 0 0.5em !important;
-	border-radius: 0px !important;
-	border-width: none !important;
-	border-color: none !important;
-	border-image: none !important;
-	width: 5em !important;
-	height: 1.5em !important;
-	-webkit-appearance: none !important;
-	appearance: none !important;
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ffffff;
-	background-position-x: 3.5em !important;
-	cursor: pointer;
+  border: none !important;
+  font-size: 16px !important;
+  padding: 0.2em !important;
+  margin: 0 0.5em !important;
+  border-radius: 0px !important;
+  border-width: none !important;
+  border-color: none !important;
+  border-image: none !important;
+  width: 5em !important;
+  height: 1.5em !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    no-repeat right #ffffff;
+  background-position-x: 3.5em !important;
+  cursor: pointer;
 }
 
 .season-selector {
-	width: auto;
-	user-select: none;
-	background-color: white;
+  width: auto;
+  user-select: none;
+  background-color: white;
 }
 
 .season-selector button {
-	text-decoration: none;
-	border: none;
-	border-style: none;
-	border-color: none;
-	border-image: none;
-	width: 6em;
-	font-size: 16px !important;
-	text-align: start;
-	height: 1.5em;
-	padding: 0.2em;
-	cursor: pointer;
-	font-family: Tahoma !important;
-	font-weight: 400 !important;
-	-webkit-font-smoothing: auto !important;
-	-moz-osx-font-smoothing: auto !important;
-	line-height: 1 !important;
-	letter-spacing: normal !important;
-	/* color: black !important; */
-	text-transform: none !important;
-	margin: 0 !important;
+  text-decoration: none;
+  border: none;
+  border-style: none;
+  border-color: none;
+  border-image: none;
+  width: 6em;
+  font-size: 16px !important;
+  text-align: start;
+  height: 1.5em;
+  padding: 0.2em;
+  cursor: pointer;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  /* color: black !important; */
+  text-transform: none !important;
+  margin: 0 !important;
 }
 
 .season-selector button:focus,
@@ -134,369 +139,363 @@ body {
 .info-button:focus,
 .close:hover,
 .close:focus {
-	background-color: #ffffff !important;
-	color: black !important;
+  background-color: #ffffff !important;
+  color: black !important;
 }
 
 .season-selector-text {
-	width: 5em;
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ffffff;
-	background-position-x: 4.5em;
+  width: 5em;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    no-repeat right #ffffff;
+  background-position-x: 4.5em;
 }
 
 .season-checkboxes {
-	display: block;
-	/* flex-direction: column; */
-	background-color: white;
-	position: absolute;
-	width: 6em;
-	display: none;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
+  display: block;
+  /* flex-direction: column; */
+  background-color: white;
+  position: absolute;
+  width: 6em;
+  display: none;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
 }
 
 .season-checkboxes div:hover {
-	background-color: #8ad0bb;
+  background-color: #8ad0bb;
 }
 
 .newBody {
-	transform: translateY(50px) !important;
-	transition-property: transform;
-	transition-duration: 350ms;
-	min-height: 100%;
+  transform: translateY(50px) !important;
+  transition-property: transform;
+  transition-duration: 350ms;
+  min-height: 100%;
 }
 
 .close {
-	float: right;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	font-size: 25.6px;
-	margin: 0.5em !important;
-	padding: 0em !important;
-	display: flex;
-	align-items: center;
-	color: black;
+  float: right;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 25.6px;
+  margin: 0.5em !important;
+  padding: 0em !important;
+  display: flex;
+  align-items: center;
+  color: black;
 }
 
 .info-button {
-	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/info32.png');
-	background-repeat: no-repeat !important;
-	background-position: center !important;
-	background-size: contain !important;
-	background-color: transparent !important;
-	width: 24px !important;
-	height: 24px !important;
-	border-radius: 50% !important;
-	padding: 0em !important;
-	border: 0px !important;
-	margin: 0 !important;
-	position: relative;
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/info32.png");
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-color: transparent !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  padding: 0em !important;
+  border: 0px !important;
+  margin: 0 !important;
+  position: relative;
 }
 
-
-
-
-
 .input-format {
-	margin: 3px 0.5ex !important;
-	padding: 0 !important;
+  margin: 3px 0.5ex !important;
+  padding: 0 !important;
 }
 
 .label-format {
-	margin: 0 !important;
-	padding: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-
-
 .lifetime {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .cost-value {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .lifetime-value {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .use-value {
-	font-weight: bold !important;
-	text-align: right;
-	display: inline-block;
-	width: 3.5ch;
+  font-weight: bold !important;
+  text-align: right;
+  display: inline-block;
+  width: 3.5ch;
 }
 
 .text-value {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 .currencySelect {
-	margin: 5px;
-	font-size: 16px !important;
-	width: 4em;
-	-webkit-appearance: none;
-	cursor: pointer;
-	border-width: initial;
-	border-style: none;
-	border-color: initial;
-	padding: 0.2em;
-	border-radius: 0px;
-	border-image: none 100% / 1 / 0 stretch;
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) 2.5em center no-repeat rgb(255, 255, 255);
+  margin: 5px;
+  font-size: 16px !important;
+  width: 4em;
+  -webkit-appearance: none;
+  cursor: pointer;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  padding: 0.2em;
+  border-radius: 0px;
+  border-image: none 100% / 1 / 0 stretch;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    2.5em center no-repeat rgb(255, 255, 255);
 }
 
 .conversion {
-	display: flex;
-	align-items: center;
-	width: auto;
-	margin: 10px;
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin: 10px;
 }
 
 .info-button .info-text {
-	font-size: 16px !important;
-	font-family: Tahoma !important;
-	font-weight: 400 !important;
-	-webkit-font-smoothing: auto !important;
-	-moz-osx-font-smoothing: auto !important;
-	line-height: 1.2 !important;
-	letter-spacing: normal !important;
-	text-transform: none !important;
-	width: 20em;
-	visibility: hidden;
-	background-color: #fff;
-	color: #555 !important;
-	text-align: center;
-	padding: 0.3em;
-	border: 1px solid black;
-	border-radius: 6px;
-	position: absolute;
-	z-index: 1;
-	top: 125%;
-	left: 50%;
-	margin-left: -60px;
-	opacity: 0;
-	transition: opacity 0.3s;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  font-size: 16px !important;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1.2 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  width: 20em;
+  visibility: hidden;
+  background-color: #fff;
+  color: #555 !important;
+  text-align: center;
+  padding: 0.3em;
+  border: 1px solid black;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .info-button:hover .info-text {
-	visibility: visible;
-	opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .cost-PW {
-	margin: 10px;
-	line-height: normal;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  margin: 10px;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .uses-per-timeframe {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	width: 40vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
 }
 
 .yearly-use {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
 }
 
 .cost-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
 }
 
 .season-selector .disabled,
 .season-selector .disabled:hover,
 .season-selector .disabled:focus {
-	color: grey !important;
+  color: grey !important;
 }
-
 
 @media only screen and (max-width: 1410px) {
-	.text-format {
-		font-size: 14px !important;
-	}
+  .text-format {
+    font-size: 14px !important;
+  }
 
-	#timeFrameSelect {
-		font-size: 14px !important;
-	}
+  #timeFrameSelect {
+    font-size: 14px !important;
+  }
 
-	.info-button .info-text {
-		font-size: 14px !important;
-	}
+  .info-button .info-text {
+    font-size: 14px !important;
+  }
 
-	.season-selector button {
-		font-size: 14px !important;
-	}
+  .season-selector button {
+    font-size: 14px !important;
+  }
 
-	.currencySelect {
-		font-size: 14px !important;
-	}
+  .currencySelect {
+    font-size: 14px !important;
+  }
 }
 
 @media only screen and (max-width: 1280px) {
-	.text-format {
-		font-size: 12px !important;
-	}
+  .text-format {
+    font-size: 12px !important;
+  }
 
-	#timeFrameSelect {
-		font-size: 12px !important;
-	}
+  #timeFrameSelect {
+    font-size: 12px !important;
+  }
 
-	.info-button .info-text {
-		font-size: 12px !important;
-	}
+  .info-button .info-text {
+    font-size: 12px !important;
+  }
 
-	.season-selector button {
-		font-size: 12px !important;
-	}
+  .season-selector button {
+    font-size: 12px !important;
+  }
 
-	.currencySelect {
-		font-size: 12px !important;
-	}
+  .currencySelect {
+    font-size: 12px !important;
+  }
 }
 
 @media only screen and (max-width: 1280px) {
-	.text-format {
-		font-size: 12px !important;
-	}
+  .text-format {
+    font-size: 12px !important;
+  }
 
-	#timeFrameSelect {
-		font-size: 12px !important;
-	}
+  #timeFrameSelect {
+    font-size: 12px !important;
+  }
 
-	.info-button .info-text {
-		font-size: 12px !important;
-	}
+  .info-button .info-text {
+    font-size: 12px !important;
+  }
 
-	.season-selector button {
-		font-size: 12px !important;
-	}
+  .season-selector button {
+    font-size: 12px !important;
+  }
 
-	.currencySelect {
-		font-size: 12px !important;
-	}
+  .currencySelect {
+    font-size: 12px !important;
+  }
 }
 
 @media only screen and (max-width: 1140px) {
-	.slider {
-		width: 15vw;
-		height: 10px;
-	}
+  .slider {
+    width: 15vw;
+    height: 10px;
+  }
 
-	.lifetime-slider {
-		width: 7.5vw;
-	}
+  .lifetime-slider {
+    width: 7.5vw;
+  }
 
-	.slider::-webkit-slider-thumb {
-		width: 40px;
-		height: 40px;
-	}
+  .slider::-webkit-slider-thumb {
+    width: 40px;
+    height: 40px;
+  }
 
-	.slider::-moz-range-thumb {
-		width: 40px;
-		height: 40px;
-	}
+  .slider::-moz-range-thumb {
+    width: 40px;
+    height: 40px;
+  }
 
-	.info-button {
-		width: 16px !important;
-		height: 16px !important;
-	}
+  .info-button {
+    width: 16px !important;
+    height: 16px !important;
+  }
 
-	.uses-per-timeframe {
-		width: 35vw;
-	}
+  .uses-per-timeframe {
+    width: 35vw;
+  }
 
-	.yearly-use {
-		width: 30vw;
-	}
+  .yearly-use {
+    width: 30vw;
+  }
 
-	.cost-section {
-		width: 30vw;
-	}
+  .cost-section {
+    width: 30vw;
+  }
 }
 
 @media only screen and (max-width: 990px) {
-	.text-format {
-		font-size: 11px !important;
-	}
+  .text-format {
+    font-size: 11px !important;
+  }
 
-	#timeFrameSelect {
-		font-size: 11px !important;
-	}
+  #timeFrameSelect {
+    font-size: 11px !important;
+  }
 
-	.info-button .info-text {
-		font-size: 11px !important;
-	}
+  .info-button .info-text {
+    font-size: 11px !important;
+  }
 
-	.season-selector button {
-		font-size: 11px !important;
-	}
+  .season-selector button {
+    font-size: 11px !important;
+  }
 
-	.currencySelect {
-		font-size: 11px !important;
-	}
+  .currencySelect {
+    font-size: 11px !important;
+  }
 
-	.season-selector-text {
-		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
-	}
+  .season-selector-text {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
 
-	#timeFrameSelect {
-		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
-	}
+  #timeFrameSelect {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
 
-	.currencySelect {
-		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
-	}
+  .currencySelect {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
 }
 
 @media only screen and (max-width: 850px) {
-	.conversion {
-		display: none;
-	}
+  .conversion {
+    display: none;
+  }
 
-	.close {
-		display: none;
-	}
+  .close {
+    display: none;
+  }
 
-	.uses-per-timeframe {
-		width: 45vw;
-	}
+  .uses-per-timeframe {
+    width: 45vw;
+  }
 
-	.yearly-use {
-		width: 35vw;
-	}
+  .yearly-use {
+    width: 35vw;
+  }
 
-	.cost-section {
-		width: 20vw;
-	}
+  .cost-section {
+    width: 20vw;
+  }
 }
 
 @media only screen and (max-width: 580px) {
-	.slider::-webkit-slider-thumb {
-		width: 30px;
-		height: 30px;
-	}
+  .slider::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+  }
 
-	.slider::-moz-range-thumb {
-		width: 30px;
-		height: 30px;
-	}
+  .slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+  }
 }
