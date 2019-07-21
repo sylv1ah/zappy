@@ -544,31 +544,41 @@ let allTextContents = [
 ];
 
 let userLanguage;
-if (window.navigator.languages) {
-  userLanguage = window.navigator.languages[2].slice(0, 2);
-} else {
-  userLanguage =
-    window.navigator.userLanguage.slice(0, 2) ||
-    window.navigator.language.slice(0, 2);
-}
-console.log("user language:", userLanguage);
+window.navigator.languages
+  ? (userLanguage = window.navigator.languages[2].slice(0, 2))
+  : (userLanguage =
+      window.navigator.userLanguage.slice(0, 2) ||
+      window.navigator.language.slice(0, 2));
 
-allTextContents.forEach(item => {
-  console.log("each text item:", item.textContent);
-  chrome.runtime.sendMessage(
+const translateFunction = (item, text, language) => {
+  return chrome.runtime.sendMessage(
     {
       contentScriptQuery: "getTranslation",
       url: "https://translator.p.rapidapi.com/api/translate",
-      word: item.textContent,
-      targetLang: userLanguage
+      word: text,
+      targetLang: language
     },
     response => {
-      console.log("translation onchange:", response.res.ouput);
-      item.textContent = response.res.ouput;
+      console.log("translation:", response.res.ouput);
+      if (!item) {
+        return response.res.ouput;
+      } else {
+        item.textContent = response.res.ouput;
+      }
     }
   );
+};
+
+allTextContents.forEach(eachItem => {
+  translateFunction(eachItem, eachItem.textContent, userLanguage);
 });
 
+seasons.forEach(eachItem => {
+  let seasonTranslated = translateFunction(null, eachItem, userLanguage);
+  seasons.splice(seasons[eachItem], 1, seasonTranslated);
+});
+
+console.log("new seasons: ", seasons);
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
