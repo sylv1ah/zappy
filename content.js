@@ -11,53 +11,53 @@ if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // No
 // Currency Extraction
 
 let currencyIDList = {
-  "USD": '$',
-  "GBP": '£',
-  "AUD": '$',
-  "BGN": 'лв.',
-  "BRL": 'R$',
-  "CAD": 'C$',
-  "CHF": 'Fr.',
-  "CNY": '¥',
-  "CZK": 'Kč',
-  "DKK": 'Kr.',
-  "EUR": '€',
-  "GBP": "£",
-  "HKD": 'HK$',
-  "HRK": 'kn',
-  "HUF": 'Ft',
-  "IDR": 'Rp',
-  "ILS": '₪',
-  "INR": '₹',
-  "ISK": 'Íkr/kr',
-  "JPY": '円',
-  "KRW": '₩',
-  "MXN": 'Mex$',
-  "MYR": 'RM',
-  "NOK": 'kr',
-  "NZD": '$',
-  "PHP": '₱',
-  "PLN": 'zł',
-  "RON": 'lei',
-  "RUB": '₽',
-  "SEK": 'kr',
-  "SGD": 'S$',
-  "THB": '฿',
-  "TRY": '₺',
-  "ZAR": 'R'
+  "AUD": ['AU$'],
+  "BGN": ['лв.'],
+  "BRL": ['R$'],
+  "CAD": ['C$'],
+  "CHF": ['Fr.'],
+  "CNY": ['¥'],
+  "CZK": ['Kč'],
+  "DKK": ['Kr.'],
+  "EUR": ['€'],
+  "GBP": ['£'],
+  "HKD": ['HK$'],
+  "HRK": ['kn'],
+  "HUF": ['Ft'],
+  "IDR": ['Rp'],
+  "ILS": ['₪'],
+  "INR": ['₹'],
+  "ISK": ['Íkr', 'kr'],
+  "JPY": ['円'],
+  "KRW": ['₩'],
+  "MXN": ['Mex$'],
+  "MYR": ['RM'],
+  "NOK": ['kr'],
+  "NZD": ['NZ$'],
+  "PHP": ['₱'],
+  "PLN": ['zł'],
+  "RON": ['lei'],
+  "RUB": ['₽'],
+  "SEK": ['kr'],
+  "SGD": ['S$'],
+  "THB": ['฿'],
+  "TRY": ['₺'],
+  "ZAR": ['R'],
+  "USD": ['$']
 }
 
 const checkCurrencyCode = (priceText) => {
   return Object.keys(currencyIDList)
-    .map(currencyCode => priceText.includes(currencyCode) ? [currencyCode, currencyIDList[currencyCode]] : null)
+    .map(currencyCode => priceText.includes(currencyCode) ? [currencyCode, currencyIDList[currencyCode][0]] : null)
     .filter(Boolean)[0];
 }
 
 const checkCurrencySymbol = (priceText) => {
   return Object.keys(currencyIDList)
-    .map(currencyCode => priceText.includes(currencyIDList[currencyCode]) ? [currencyCode, currencyIDList[currencyCode]] : null)
-    .filter(Boolean)[0];
-  // Need to deal with edge cases, multiple dollars
+    .map(currencyCode => {
+      return currencyCode, currencyIDList[currencyCode].map((symbol) => (priceText.includes(symbol)) ? [currencyCode, symbol] : null)
+        .filter(Boolean)[0];
+    }).filter(Boolean)[0];
 }
 
 const currencyDetails = checkCurrencyCode(price[0].innerText) || checkCurrencySymbol(price[0].innerText);
@@ -374,7 +374,7 @@ currencyList.map(currency => {
 });
 
 //CURRENCY CONVERT
-let baseCurrency = "GBP";
+let baseCurrency = code;
 //change this depending on page scrape
 
 let currencyConverterFunction = (selectedCurrency, runningTotal) => {
@@ -387,7 +387,7 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
     },
     response => {
       let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount);
-      costPW.textContent = `Cost per wear: ${(convertedCost.toLocaleString('en-GB', { style: 'currency', currency: selectedCurrency, currencyDisplay: 'symbol' }))}`;
+      costPW.textContent = `Cost per wear: ${symbol}${convertedCost.toFixed(2)}`;
     }
   );
 };
