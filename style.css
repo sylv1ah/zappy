@@ -73,7 +73,7 @@ body {
 }
 
 .text-format {
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-family: Tahoma !important;
   font-weight: 400 !important;
   -webkit-font-smoothing: auto !important;
@@ -87,7 +87,7 @@ body {
 
 #timeFrameSelect {
   border: none !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   padding: 0.2em !important;
   margin: 0 0.5em !important;
   border-radius: 0px !important;
@@ -117,7 +117,7 @@ body {
   border-color: none;
   border-image: none;
   width: 6em;
-  font-size: 16px !important;
+  font-size: 15px !important;
   text-align: start;
   height: 1.5em;
   padding: 0.2em;
@@ -237,7 +237,7 @@ body {
 
 .currencySelect {
   margin: 5px;
-  font-size: 16px !important;
+  font-size: 15px !important;
   width: 4em;
   -webkit-appearance: none;
   cursor: pointer;
@@ -259,7 +259,7 @@ body {
 }
 
 .info-button .info-text {
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-family: Tahoma !important;
   font-weight: 400 !important;
   -webkit-font-smoothing: auto !important;
@@ -293,7 +293,7 @@ body {
 }
 
 .text-format {
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-family: Tahoma !important;
   font-weight: 400 !important;
   -webkit-font-smoothing: auto !important;
@@ -388,7 +388,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25vw;
+  width: 30vw;
 }
 
 .season-selector .disabled,
@@ -484,8 +484,8 @@ body {
   }
 
   .info-button {
-    width: 16px !important;
-    height: 16px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 
   .uses-per-timeframe {
