@@ -2,12 +2,17 @@
 let price = document.getElementsByClassName('css-b9fpep'); // NIKE price span class
 if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS
 if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo
+if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo and Boohoo
 if (price.length == 0)
 	price = document.getElementsByClassName('price-discount'); // Shein
 if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale and prettylittlething - not working
 if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
+if (price.length == 0) price = document.getElementsByClassName('xk'); // Zappos
+if (price.length == 0) price = document.getElementsByClassName('fabric-purchasable-product-component-simplified-price-sale-price'); // Victoria's secret sale
+if (price.length == 0) price = document.getElementsByClassName('fabric-purchasable-product-component-simplified-price'); // Victoria's secret non-sale
+
+
 
 // CURRENCY EXTRACTION
 
@@ -114,67 +119,67 @@ const sendState = (currentState) => {
 const title = document.title;
 
 const itemLifetimes = {
-	activewear: 34,
-	anorak: 14,
-	bikini: 12,
-	blazer: 65,
-	blouse: 65,
-	boots: 35,
-	boxers: 36,
-	bra: 36,
-	briefs: 36,
-	cap: 24,
-	cardigan: 54,
-	coat: 54,
-	dress: 3,
-	'dressing gown': 37,
-	gloves: 23,
-	hat: 24,
-	heels: 8,
-	hoodie: 54,
-	jacket: 54,
-	jeans: 298,
-	jumper: 54,
-	jumpsuit: 4,
-	kimono: 15,
-	knickers: 36,
-	leggings: 19,
-	lingerie: 5,
-	miniskirt: 38,
-	nightwear: 40,
-	overalls: 4,
-	panties: 36,
-	pants: 19,
-	playsuit: 4,
-	pyjamas: 40,
-	raincoat: 14,
-	sandals: 20,
-	shirt: 95,
-	shoes: 35,
-	shorts: 46,
-	skirt: 38,
-	slippers: 20,
-	sneakers: 91,
-	stilettos: 8,
-	stockings: 10,
-	suit: 12,
-	sweater: 54,
-	sweatshirt: 54,
-	swimwear: 12,
-	'swimming costume': 12,
-	'swimming trunks': 12,
-	't-shirt': 95,
-	thong: 36,
-	tie: 23,
-	tights: 10,
-	top: 95,
-	tracksuit: 34,
-	trainers: 91,
-	trousers: 19,
-	underpants: 36,
-	underwear: 36,
-	vest: 36,
-	workwear: 65
+  activewear: 34,
+  anorak: 14,
+  bikini: 12,
+  blazer: 65,
+  blouse: 65,
+  boots: 35,
+  boxers: 36,
+  bra: 36,
+  briefs: 36,
+  cap: 24,
+  cardigan: 54,
+  coat: 54,
+  dress: 3,
+  'dressing gown': 37,
+  gloves: 23,
+  hat: 24,
+  heels: 8,
+  hoodie: 54,
+  jacket: 54,
+  jeans: 298,
+  jumper: 54,
+  jumpsuit: 4,
+  kimono: 15,
+  knickers: 36,
+  leggings: 19,
+  lingerie: 5,
+  miniskirt: 38,
+  nightwear: 40,
+  overalls: 4,
+  panties: 36,
+  pants: 19,
+  playsuit: 4,
+  pyjamas: 40,
+  raincoat: 14,
+  sandals: 20,
+  shirt: 95,
+  shoes: 35,
+  shorts: 46,
+  skirt: 38,
+  slippers: 20,
+  sneakers: 91,
+  stilettos: 8,
+  stockings: 10,
+  suit: 12,
+  sweater: 54,
+  sweatshirt: 54,
+  swimwear: 12,
+  'swimming costume': 12,
+  'swimming trunks': 12,
+  't-shirt': 95,
+  thong: 36,
+  tie: 23,
+  tights: 10,
+  top: 95,
+  tracksuit: 34,
+  trainers: 91,
+  trouser: 19,
+  underpants: 36,
+  underwear: 36,
+  vest: 36,
+  workwear: 65
 };
 
 const itemArray = Object.keys(itemLifetimes);
