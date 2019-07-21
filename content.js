@@ -72,9 +72,6 @@ const itemCost = parseFloat((price[0].innerText)
   .replace(symbol, ""))
   .toFixed(2);
 
-console.log('Currency Details:', currencyDetails);
-console.log('Stripped Item Cost:', itemCost);
-
 // CONNECT CONTENT SCRIPT TO EXTENSION INFO
 let zappyState = 'enabled';
 
@@ -208,7 +205,6 @@ const CPW = (
     newCurrency,
     adjustedCost
   );
-
 };
 
 window.onload = () => {
@@ -318,7 +314,13 @@ const convertUses = (current, target, value) => {
 };
 
 timeFrameSelect.onchange = () => {
-  seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+  if (timeFrameSelect.value === 'year') {
+    seasonSelectorText.disabled = true;
+    seasonSelectorText.classList.add('disabled');
+  } else {
+    seasonSelectorText.disabled = false;
+    seasonSelectorText.classList.remove('disabled');
+  }
 
   if (
     (seasonCheckboxes.style.display =
@@ -342,7 +344,8 @@ timeFrameSelect.onchange = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
 
 };
@@ -361,7 +364,7 @@ let seasonSelector = document.createElement('section');
 seasonSelector.classList.add('season-selector');
 let seasonSelectorText = document.createElement('button');
 seasonSelectorText.classList.add('season-selector-text', 'text-format');
-seasonSelectorText.textContent = 'Choose seasons:';
+seasonSelectorText.textContent = 'Seasons:';
 seasonSelector.appendChild(seasonSelectorText);
 let seasonCheckboxes = document.createElement('div');
 seasonCheckboxes.classList.add('season-checkboxes');
@@ -528,14 +531,22 @@ conversion.classList.add('conversion');
 conversion.appendChild(convertTo);
 conversion.appendChild(currencySelect);
 
+let yearlyUse = document.createElement('section');
+yearlyUse.classList.add('yearly-use');
+yearlyUse.appendChild(seasonSelector);
+yearlyUse.appendChild(lifetime);
+
+let costSection = document.createElement('section');
+costSection.classList.add('cost-section');
+costSection.appendChild(costPW);
+costSection.appendChild(conversion);
+
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement('header');
 zappyBar.classList.add('sticky');
 zappyBar.appendChild(usesPerTimeframe);
-zappyBar.appendChild(seasonSelector);
-zappyBar.appendChild(lifetime);
-zappyBar.appendChild(costPW);
-zappyBar.appendChild(conversion);
+zappyBar.appendChild(yearlyUse);
+zappyBar.appendChild(costSection);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
