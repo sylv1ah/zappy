@@ -61,6 +61,7 @@ let items = [
   "shorts",
   "skirt",
   "slippers",
+  "sliders",
   "socks",
   "stilettos",
   "stockings",
