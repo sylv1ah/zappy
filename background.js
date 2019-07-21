@@ -1,3 +1,25 @@
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const { runningTotal, baseCurrency, newCurrency } = request;
+
+  if (request.contentScriptQuery == "getConversion") {
+    let url = `https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=${baseCurrency}&to=${newCurrency}&amount=${runningTotal}`;
+    console.log("URL:", url);
+    fetch(url, {
+      headers: {
+        "X-RapidAPI-Host": "currency-converter5.p.rapidapi.com",
+        "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59"
+      }
+    })
+      .then(r => r.json())
+      .then(result => {
+        console.log("this is the result:", result.rates);
+        sendResponse({ res: result.rates });
+      })
+      .catch(err => console.log(err));
+    return true;
+  }
+});
+
 let items = ["anorak",
   "apron",
   "baseball-cap",

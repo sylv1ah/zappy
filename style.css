@@ -39,8 +39,7 @@
 	width: 50px;
 	height: 50px;
 	border: 0;
-	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png')
-		no-repeat center;
+	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png') no-repeat center;
 	background-size: contain;
 	cursor: pointer;
 	/* margin: 0 0px 0 -10px; */
@@ -50,8 +49,7 @@
 	width: 50px;
 	height: 50px;
 	border: 0;
-	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png')
-		no-repeat center;
+	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png') no-repeat center;
 	background-size: contain;
 	cursor: pointer;
 	/* margin: 0 0px 0 -10px; */
@@ -82,8 +80,7 @@ body {
 	height: 1.5em !important;
 	-webkit-appearance: none !important;
 	appearance: none !important;
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
-		no-repeat right #ffffff;
+	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ffffff;
 	background-position-x: 3.5em !important;
 	cursor: pointer;
 }
@@ -121,6 +118,7 @@ body {
 	text-transform: none !important;
 	margin: 0 !important;
 }
+
 .season-selector button:focus,
 .season-selector button:hover,
 .info-button:hover,
@@ -130,10 +128,10 @@ body {
 	background-color: #ffffff !important;
 	color: black !important;
 }
+
 .season-selector-text {
 	width: 10em;
-	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
-		no-repeat right #ffffff;
+	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ffffff;
 	background-position-x: 8.5em;
 }
 
@@ -188,15 +186,15 @@ body {
 }
 
 .info-button .info-text {
-  font-size: 16px !important;
+	font-size: 16px !important;
 	font-family: Tahoma !important;
 	font-weight: 400 !important;
 	-webkit-font-smoothing: auto !important;
 	-moz-osx-font-smoothing: auto !important;
 	line-height: 1.2 !important;
 	letter-spacing: normal !important;
-  text-transform: none !important;
-  width: 10em;
+	text-transform: none !important;
+	width: 10em;
 
 	visibility: hidden;
 	background-color: #fff;
@@ -210,7 +208,7 @@ body {
 	left: 50%;
 	margin-left: -60px;
 	opacity: 0;
-  transition: opacity 0.3s;
+	transition: opacity 0.3s;
 }
 
 .info-button:hover .info-text {
@@ -270,4 +268,18 @@ body {
 
 .text-value {
 	font-weight: bold !important;
+}
+
+.currencySelect {
+	font-size: 1em;
+	width: 6em;
+	-webkit-appearance: none;
+	cursor: pointer;
+	border-width: initial;
+	border-style: none;
+	border-color: initial;
+	padding: 0.2em;
+	border-radius: 0px;
+	border-image: none 100% / 1 / 0 stretch;
+	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) 4.5em center no-repeat rgb(255, 255, 255);
 }

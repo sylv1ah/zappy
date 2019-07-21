@@ -8,6 +8,7 @@
     "storage",
     "activeTab",
     "declarativeContent",
+    "https://currency-converter5.p.rapidapi.com",
     "tabs"
   ],
   "background": {
