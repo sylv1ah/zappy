@@ -7,66 +7,66 @@
 const title = document.title;
 
 const itemLifetimes = {
-  activewear: 34,
-  anorak: 14,
+	activewear: 34,
+	anorak: 14,
 	bikini: 12,
 	blazer: 65,
 	blouse: 65,
 	boots: 35,
-  boxers: 36,
-  bra: 36,
-  briefs: 36,
-  cap: 24,
+	boxers: 36,
+	bra: 36,
+	briefs: 36,
+	cap: 24,
 	cardigan: 54,
 	coat: 54,
-  dress: 3,
-  "dressing gown": 37,
-  gloves: 23,
-  hat: 24,
+	dress: 3,
+	'dressing gown': 37,
+	gloves: 23,
+	hat: 24,
 	heels: 8,
 	hoodie: 54,
 	jacket: 54,
 	jeans: 298,
 	jumper: 54,
-  jumpsuit: 4,
-  kimono: 15,
+	jumpsuit: 4,
+	kimono: 15,
 	knickers: 36,
 	leggings: 19,
 	lingerie: 5,
 	miniskirt: 38,
-  nightwear: 40,
-  overalls: 4,
+	nightwear: 40,
+	overalls: 4,
 	panties: 36,
-  pants: 19,
-  playsuit: 4,
-  pyjamas: 40,
-  raincoat: 14,
+	pants: 19,
+	playsuit: 4,
+	pyjamas: 40,
+	raincoat: 14,
 	sandals: 20,
 	shirt: 95,
 	shoes: 35,
 	shorts: 46,
 	skirt: 38,
 	slippers: 20,
-  sneakers: 91,
-  stilettos: 8,
-  stockings: 10,
-  suit: 12,
+	sneakers: 91,
+	stilettos: 8,
+	stockings: 10,
+	suit: 12,
 	sweater: 54,
 	sweatshirt: 54,
 	swimwear: 12,
 	'swimming costume': 12,
 	'swimming trunks': 12,
 	't-shirt': 95,
-  thong: 36,
-  tie: 23,
+	thong: 36,
+	tie: 23,
 	tights: 10,
 	top: 95,
 	tracksuit: 34,
 	trainers: 91,
 	trousers: 19,
 	underpants: 36,
-  underwear: 36,
-  vest: 36,
+	underwear: 36,
+	vest: 36,
 	workwear: 65
 };
 
@@ -76,7 +76,7 @@ const pageItemArray = itemArray.filter((word) =>
 );
 const pageItem = pageItemArray[0];
 console.log(pageItem);
-const weeklyItemUse = itemLifetimes[pageItem] / 104 // if data figure is number of uses over 2 years
+const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number of uses over 2 years
 console.log('lifetime =', weeklyItemUse);
 
 // SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES
@@ -93,7 +93,6 @@ if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // No
 const itemCost = parseFloat(
 	price[0].innerText.replace(/[£$A-Z]/gi, '')
 ).toFixed(2);
-console.log('itemcost =', itemCost);
 
 //COST PER WEAR
 let costPW = document.createElement('div');
@@ -154,9 +153,9 @@ usesPer.appendChild(useValue);
 usesPer.appendChild(averageWear);
 
 const changeSliderValue = (value) => {
-  slider.step = 1;
-  useValue.textContent = slider.value;
-  //value 0 should change text to "less than 1 uses per"
+	slider.min = 1;
+	slider.step = 1;
+	useValue.textContent = slider.value;
 	value == 1
 		? (averageWear.textContent = ' use per ')
 		: (averageWear.textContent = ' uses per ');
@@ -174,12 +173,12 @@ slider.oninput = () => {
 };
 
 //INFO BUTTON
-let infoButton = document.createElement('button');
-infoButton.classList.add('info-button');
-
-
-
-
+const info = document.createElement('div');
+info.classList.add('info-button');
+const infoText = document.createElement('span');
+infoText.classList.add('info-text');
+infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per week.`;
+info.appendChild(infoText);
 
 
 //TIME FRAME SELECT
@@ -198,7 +197,7 @@ usesPerTimeframe.classList.add('uses-per-timeframe');
 usesPerTimeframe.appendChild(slider);
 usesPerTimeframe.appendChild(usesPer);
 usesPerTimeframe.appendChild(timeFrameSelect);
-usesPerTimeframe.appendChild(infoButton);
+usesPerTimeframe.appendChild(info);
 
 const convertUses = (current, target, value) => {
 	return current === 'week'
