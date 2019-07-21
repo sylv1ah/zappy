@@ -536,8 +536,8 @@ currencySelect.onchange = () => {
 chrome.runtime.sendMessage(
   {
     contentScriptQuery: "getTranslation",
-    url: "https://google-translate1.p.rapidapi.com/language/translate/v2",
-    word: "hello",
+    url: "https://translator.p.rapidapi.com/api/translate",
+    word: "uses per",
     baseLang: "en",
     targetLang: "es"
   },
@@ -546,9 +546,25 @@ chrome.runtime.sendMessage(
   }
 );
 
+let chooseLangSelect = document.createElement("select");
+chooseLangSelect.classList.add("language-select");
+chooseLangSelect.classList.add("text-format");
+let languages = {
+  ENG: "en",
+  SPN: "es"
+};
+
+Object.keys(languages).map(key => {
+  option = document.createElement("option");
+  option.value = key;
+  option.text = key;
+  chooseLangSelect.appendChild(option);
+});
+
 //APPEND EVERYTHING TO BAR
 let zappyBar = document.createElement("div");
 zappyBar.classList.add("sticky");
+zappyBar.appendChild(chooseLangSelect);
 zappyBar.appendChild(usesPerTimeframe);
 zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetime);

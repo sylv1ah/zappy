@@ -103,15 +103,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { url, word, baseLang, targetLang } = request;
 
   if (request.contentScriptQuery == "getTranslation") {
-    console.log("URL:", url);
+    // let newUrl = `https://translator.p.rapidapi.com/api/translate?&input=${word}&target=${targetLang}&source=${baseLang}`;
+    // console.log("URL:", newUrl);
     fetch(url, {
+      method: "post",
       headers: {
-        "X-RapidAPI-Host": "currency-converter5.p.rapidapi.com",
+        "X-RapidAPI-Host": "translator.p.rapidapi.com",
         "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59",
-        q: word,
-        source: baseLang,
-        target: targetLang
-      }
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: `input=${word}&target=${targetLang}&source=${baseLang}`
     })
       .then(r => r.json())
       .then(result => {
