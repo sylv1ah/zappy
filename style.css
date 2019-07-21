@@ -12,7 +12,6 @@
 	box-shadow: 0px 5px 40px 1px black;
 	font-family: 'futura-pt-n4', 'futura-pt', Tahoma, Geneva, Verdana, Arial,
 		sans-serif;
-	font-size: 1em;
 }
 
 .slider {
@@ -67,8 +66,9 @@ body {
 	padding-top: 100px;
 }
 
+
 .text-format {
-	font-size: 15px !important;
+	font-size: 16px !important;
 	font-family: Tahoma !important;
 	font-weight: 400 !important;
 	-webkit-font-smoothing: auto !important;
@@ -80,9 +80,10 @@ body {
 	margin: 0 !important;
 }
 
+
 #timeFrameSelect {
 	border: none !important;
-	font-size: 15px !important;
+	font-size: 16px !important;
 	padding: 0.2em !important;
 	margin: 0 0.5em !important;
 	border-radius: 0px !important;
@@ -111,7 +112,7 @@ body {
 	border-color: none;
 	border-image: none;
 	width: 6em;
-	font-size: 1em !important;
+	font-size: 16px !important;
 	text-align: start;
 	height: 1.5em;
 	padding: 0.2em;
@@ -236,7 +237,7 @@ body {
 
 .currencySelect {
 	margin: 5px;
-	font-size: 1em;
+	font-size: 16px !important;
 	width: 4em;
 	-webkit-appearance: none;
 	cursor: pointer;
@@ -257,7 +258,7 @@ body {
 }
 
 .info-button .info-text {
-	font-size: 15px !important;
+	font-size: 16px !important;
 	font-family: Tahoma !important;
 	font-weight: 400 !important;
 	-webkit-font-smoothing: auto !important;
@@ -293,6 +294,18 @@ body {
 
 .cost-PW {
 	margin: 10px;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.uses-per-timeframe {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 40vw;
 }
 
 .yearly-use {
@@ -309,16 +322,181 @@ body {
 	width: 25vw;
 }
 
-.uses-per-timeframe {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	width: 39vw;
-}
-
 .season-selector .disabled,
 .season-selector .disabled:hover,
 .season-selector .disabled:focus {
 	color: grey !important;
+}
+
+
+@media only screen and (max-width: 1410px) {
+	.text-format {
+		font-size: 14px !important;
+	}
+
+	#timeFrameSelect {
+		font-size: 14px !important;
+	}
+
+	.info-button .info-text {
+		font-size: 14px !important;
+	}
+
+	.season-selector button {
+		font-size: 14px !important;
+	}
+
+	.currencySelect {
+		font-size: 14px !important;
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+	.text-format {
+		font-size: 12px !important;
+	}
+
+	#timeFrameSelect {
+		font-size: 12px !important;
+	}
+
+	.info-button .info-text {
+		font-size: 12px !important;
+	}
+
+	.season-selector button {
+		font-size: 12px !important;
+	}
+
+	.currencySelect {
+		font-size: 12px !important;
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+	.text-format {
+		font-size: 12px !important;
+	}
+
+	#timeFrameSelect {
+		font-size: 12px !important;
+	}
+
+	.info-button .info-text {
+		font-size: 12px !important;
+	}
+
+	.season-selector button {
+		font-size: 12px !important;
+	}
+
+	.currencySelect {
+		font-size: 12px !important;
+	}
+}
+
+@media only screen and (max-width: 1140px) {
+	.slider {
+		width: 15vw;
+		height: 10px;
+	}
+
+	.lifetime-slider {
+		width: 7.5vw;
+	}
+
+	.slider::-webkit-slider-thumb {
+		width: 40px;
+		height: 40px;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 40px;
+		height: 40px;
+	}
+
+	.info-button {
+		width: 16px !important;
+		height: 16px !important;
+	}
+
+	.uses-per-timeframe {
+		width: 35vw;
+	}
+
+	.yearly-use {
+		width: 30vw;
+	}
+
+	.cost-section {
+		width: 30vw;
+	}
+}
+
+@media only screen and (max-width: 990px) {
+	.text-format {
+		font-size: 11px !important;
+	}
+
+	#timeFrameSelect {
+		font-size: 11px !important;
+	}
+
+	.info-button .info-text {
+		font-size: 11px !important;
+	}
+
+	.season-selector button {
+		font-size: 11px !important;
+	}
+
+	.currencySelect {
+		font-size: 11px !important;
+	}
+
+	.season-selector-text {
+		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+	}
+
+	#timeFrameSelect {
+		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+	}
+
+	.currencySelect {
+		background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+	}
+}
+
+@media only screen and (max-width: 850px) {
+	.conversion {
+		display: none;
+	}
+
+	.close {
+		display: none;
+	}
+
+	.uses-per-timeframe {
+		width: 45vw;
+	}
+
+	.yearly-use {
+		width: 35vw;
+	}
+
+	.cost-section {
+		width: 20vw;
+	}
+}
+
+@media only screen and (max-width: 580px) {
+	.slider::-webkit-slider-thumb {
+		width: 30px;
+		height: 30px;
+	}
+
+	.slider::-moz-range-thumb {
+		width: 30px;
+		height: 30px;
+	}
 }

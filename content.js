@@ -373,6 +373,7 @@ seasonSelector.appendChild(seasonCheckboxes);
 seasons.map(season => {
   input = document.createElement("input");
   label = document.createElement("label");
+  label.classList.add('text-format');
   input.type = "checkbox";
   input.name = "season";
   input.id = season;
