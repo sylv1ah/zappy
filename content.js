@@ -11,7 +11,7 @@ if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // No
 // Currency Extraction
 
 let currencyIDList = {
-  "AUD": ['AU$'],
+  "AUD": ['AU$', 'A$'],
   "BGN": ['лв.'],
   "BRL": ['R$'],
   "CAD": ['C$'],
@@ -317,61 +317,32 @@ closeButton.addEventListener("click", () => {
 let currencySelect = document.createElement("select");
 // let currencyList = ["GBP"];
 
-let sendMessageToBackground = () => {
-  chrome.runtime.sendMessage(
-    {
-      contentScriptQuery: "getCurrencyList",
-      url: "https://currency-converter5.p.rapidapi.com/currency/list"
-    },
-    response => {
-      console.log("currencies in content.js:", response.res);
-      currencyList.push(Object.keys(response.res));
-    }
-  );
-};
+// let sendMessageToBackground = () => {
+//   chrome.runtime.sendMessage(
+//     {
+//       contentScriptQuery: "getCurrencyList",
+//       url: "https://currency-converter5.p.rapidapi.com/currency/list"
+//     },
+//     response => {
+//       console.log("currencies in content.js:", response.res);
+//       currencyList.push(Object.keys(response.res));
+//     }
+//   );
+// };
 
-let currencyList = [
-  "GBP",
-  "AUD",
-  "BGN",
-  "BRL",
-  "CAD",
-  "CHF",
-  "CNY",
-  "CZK",
-  "DKK",
-  "EUR",
-  "HKD",
-  "HRK",
-  "HUF",
-  "IDR",
-  "ILS",
-  "INR",
-  "ISK",
-  "JPY",
-  "KRW",
-  "MXN",
-  "MYR",
-  "NOK",
-  "NZD",
-  "PHP",
-  "PLN",
-  "RON",
-  "RUB",
-  "SEK",
-  "SGD",
-  "THB",
-  "TRY",
-  "USD",
-  "ZAR"
-];
+let currencyCodeList = Object.keys(currencyIDList);
 
-currencyList.map(currency => {
+currencyCodeList.map(currency => {
   option = document.createElement("option");
   option.value = currency;
   option.text = currency;
   currencySelect.appendChild(option);
 });
+
+currencySelect.selectedIndex = currencyCodeList.indexOf(code);
+
+
+
 
 //CURRENCY CONVERT
 let baseCurrency = code;
@@ -387,13 +358,14 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
     },
     response => {
       let convertedCost = parseFloat(response.res[selectedCurrency].rate_for_amount);
-      costPW.textContent = `Cost per wear: ${symbol}${convertedCost.toFixed(2)}`;
+      costPW.textContent = `Cost per wear: ${symbol} ${convertedCost.toFixed(2)}`;
     }
   );
 };
 
 currencySelect.onchange = () => {
   let newCurrency = currencySelect.value;
+  symbol = currencyIDList[newCurrency][0];
   console.log("new currency:", newCurrency);
   //   currencyConverterFunction(newCurrency);
 
