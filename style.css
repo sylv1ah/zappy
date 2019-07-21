@@ -269,3 +269,17 @@ body {
 .text-value {
 	font-weight: bold !important;
 }
+
+.currencySelect {
+	font-size: 1em;
+	width: 6em;
+	-webkit-appearance: none;
+	cursor: pointer;
+	border-width: initial;
+	border-style: none;
+	border-color: initial;
+	padding: 0.2em;
+	border-radius: 0px;
+	border-image: none 100% / 1 / 0 stretch;
+	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) 4.5em center no-repeat rgb(255, 255, 255);
+}

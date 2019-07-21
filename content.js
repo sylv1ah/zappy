@@ -472,6 +472,7 @@ closeButton.addEventListener("click", () => {
 
 //CURRENCY SELECT
 let currencySelect = document.createElement("select");
+currencySelect.classList.add('currencySelect');
 let currencyCodeList = Object.keys(currencyIDList);
 
 currencyCodeList.map(currency => {
