@@ -292,6 +292,75 @@ body {
   opacity: 1;
 }
 
+.text-format {
+  font-size: 16px !important;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  color: black !important;
+  text-transform: none !important;
+  margin: 0 !important;
+}
+
+.input-format {
+  margin: 3px 0.5ex !important;
+  padding: 0 !important;
+}
+
+.label-format {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.uses-per-timeframe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.lifetime {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cost-value {
+  font-weight: bold !important;
+}
+
+.lifetime-value {
+  font-weight: bold !important;
+}
+
+.use-value {
+  font-weight: bold !important;
+  text-align: right;
+  display: inline-block;
+  width: 3.5ch;
+}
+
+.text-value {
+  font-weight: bold !important;
+}
+
+.currencySelect,
+.language-select {
+  font-size: 1em;
+  width: 6em;
+  -webkit-appearance: none;
+  cursor: pointer;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  padding: 0.2em;
+  border-radius: 0px;
+  border-image: none 100% / 1 / 0 stretch;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    4.5em center no-repeat rgb(255, 255, 255);
+}
 .cost-PW {
   margin: 10px;
   line-height: normal;
