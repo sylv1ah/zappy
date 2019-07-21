@@ -2,12 +2,17 @@
 let price = document.getElementsByClassName('css-b9fpep'); // NIKE price span class
 if (price.length == 0) price = document.getElementsByClassName('current-price'); // ASOS
 if (price.length == 0) price = document.getElementsByClassName('product-price'); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo
+if (price.length == 0) price = document.getElementsByClassName('price-sales'); // Uniqlo and Boohoo
 if (price.length == 0)
   price = document.getElementsByClassName('price-discount'); // Shein
 if (price.length == 0) price = document.getElementsByClassName('on-sale'); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName('price'); // Macy's non-sale and prettylittlething - not working
 if (price.length == 0) price = document.getElementsByClassName('Z1WEo3w'); // Nordstrom
+if (price.length == 0) price = document.getElementsByClassName('xk'); // Zappos
+if (price.length == 0) price = document.getElementsByClassName('fabric-purchasable-product-component-simplified-price-sale-price'); // Victoria's secret sale
+if (price.length == 0) price = document.getElementsByClassName('fabric-purchasable-product-component-simplified-price'); // Victoria's secret non-sale
+
+
 
 // CURRENCY EXTRACTION
 
@@ -157,7 +162,7 @@ const itemLifetimes = {
   top: 95,
   tracksuit: 34,
   trainers: 91,
-  trousers: 19,
+  trouser: 19,
   underpants: 36,
   underwear: 36,
   vest: 36,
