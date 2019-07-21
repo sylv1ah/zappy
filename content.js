@@ -91,9 +91,6 @@ const itemCost = parseFloat(
 		.replace(symbol, '')
 ).toFixed(2);
 
-console.log('Currency Details:', currencyDetails);
-console.log('Stripped Item Cost:', itemCost);
-
 // CONNECT CONTENT SCRIPT TO EXTENSION INFO
 let zappyState = 'enabled';
 
@@ -119,67 +116,67 @@ const sendState = (currentState) => {
 const title = document.title;
 
 const itemLifetimes = {
-  activewear: 34,
-  anorak: 14,
-  bikini: 12,
-  blazer: 65,
-  blouse: 65,
-  boots: 35,
-  boxers: 36,
-  bra: 36,
-  briefs: 36,
-  cap: 24,
-  cardigan: 54,
-  coat: 54,
-  dress: 3,
-  'dressing gown': 37,
-  gloves: 23,
-  hat: 24,
-  heels: 8,
-  hoodie: 54,
-  jacket: 54,
-  jeans: 298,
-  jumper: 54,
-  jumpsuit: 4,
-  kimono: 15,
-  knickers: 36,
-  leggings: 19,
-  lingerie: 5,
-  miniskirt: 38,
-  nightwear: 40,
-  overalls: 4,
-  panties: 36,
-  pants: 19,
-  playsuit: 4,
-  pyjamas: 40,
-  raincoat: 14,
-  sandals: 20,
-  shirt: 95,
-  shoes: 35,
-  shorts: 46,
-  skirt: 38,
-  slippers: 20,
-  sneakers: 91,
-  stilettos: 8,
-  stockings: 10,
-  suit: 12,
-  sweater: 54,
-  sweatshirt: 54,
-  swimwear: 12,
-  'swimming costume': 12,
-  'swimming trunks': 12,
-  't-shirt': 95,
-  thong: 36,
-  tie: 23,
-  tights: 10,
-  top: 95,
-  tracksuit: 34,
-  trainers: 91,
-  trouser: 19,
-  underpants: 36,
-  underwear: 36,
-  vest: 36,
-  workwear: 65
+	activewear: 34,
+	anorak: 14,
+	bikini: 12,
+	blazer: 65,
+	blouse: 65,
+	boots: 35,
+	boxers: 36,
+	bra: 36,
+	briefs: 36,
+	cap: 24,
+	cardigan: 54,
+	coat: 54,
+	dress: 3,
+	'dressing gown': 37,
+	gloves: 23,
+	hat: 24,
+	heels: 8,
+	hoodie: 54,
+	jacket: 54,
+	jeans: 298,
+	jumper: 54,
+	jumpsuit: 4,
+	kimono: 15,
+	knickers: 36,
+	leggings: 19,
+	lingerie: 5,
+	miniskirt: 38,
+	nightwear: 40,
+	overalls: 4,
+	panties: 36,
+	pants: 19,
+	playsuit: 4,
+	pyjamas: 40,
+	raincoat: 14,
+	sandals: 20,
+	shirt: 95,
+	shoes: 35,
+	shorts: 46,
+	skirt: 38,
+	slippers: 20,
+	sneakers: 91,
+	stilettos: 8,
+	stockings: 10,
+	suit: 12,
+	sweater: 54,
+	sweatshirt: 54,
+	swimwear: 12,
+	'swimming costume': 12,
+	'swimming trunks': 12,
+	't-shirt': 95,
+	thong: 36,
+	tie: 23,
+	tights: 10,
+	top: 95,
+	tracksuit: 34,
+	trainers: 91,
+	trouser: 19,
+	underpants: 36,
+	underwear: 36,
+	vest: 36,
+	workwear: 65
 };
 
 const itemArray = Object.keys(itemLifetimes);
@@ -190,8 +187,8 @@ const pageItem = pageItemArray[0];
 const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number of uses over 2 years
 
 //COST PER WEAR
-let costPW = document.createElement('div');
-costPW.classList.add('text-format');
+let costPW = document.createElement('section');
+costPW.classList.add('cost-PW');
 
 let costValue = document.createElement('span');
 costValue.classList.add('cost-value', 'text-format');
@@ -219,7 +216,10 @@ const CPW = (
 		lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
 	let adjustedCost = itemCost / wearAmount;
 
-	currencyConverterFunction(newCurrency, adjustedCost);
+	currencyConverterFunction(
+		newCurrency,
+		adjustedCost
+	);
 };
 
 window.onload = () => {
@@ -282,7 +282,7 @@ slider.oninput = () => {
 //INFO BUTTON
 const info = document.createElement('div');
 info.classList.add('info-button');
-const infoText = document.createElement('span');
+const infoText = document.createElement('div');
 infoText.classList.add('info-text');
 infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per ${slider.timeframe}.`;
 info.appendChild(infoText);
@@ -324,25 +324,31 @@ const convertUses = (current, target, value) => {
 		? target === 'month'
 			? (value / 7) * 30
 			: target === 'year'
-			? (value / 7) * 365
-			: value
+				? (value / 7) * 365
+				: value
 		: current === 'month'
-		? target === 'week'
-			? (value / 30) * 7
-			: target === 'year'
-			? (value / 30) * 365
-			: value
-		: current === 'year'
-		? target === 'week'
-			? (value / 365) * 7
-			: target === 'month'
-			? (value / 365) * 30
-			: value
-		: value;
+			? target === 'week'
+				? (value / 30) * 7
+				: target === 'year'
+					? (value / 30) * 365
+					: value
+			: current === 'year'
+				? target === 'week'
+					? (value / 365) * 7
+					: target === 'month'
+						? (value / 365) * 30
+						: value
+				: value;
 };
 
 timeFrameSelect.onchange = () => {
-	seasonSelectorText.disabled = timeFrameSelect.value === 'year' ? true : false;
+	if (timeFrameSelect.value === 'year') {
+		seasonSelectorText.disabled = true;
+		seasonSelectorText.classList.add('disabled');
+	} else {
+		seasonSelectorText.disabled = false;
+		seasonSelectorText.classList.remove('disabled');
+	}
 
 	if (
 		(seasonCheckboxes.style.display =
@@ -357,7 +363,7 @@ timeFrameSelect.onchange = () => {
 	slider.value = Math.round(
 		convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
 	);
-	infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${changeInfoText(timeFrameSelect.value).toFixed(2)} times per ${timeFrameSelect.value}.`;
+	infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
 	slider.timeframe = timeFrameSelect.value;
 	slider.max = timeFrameObj[timeFrameSelect.value];
 	changeSliderValue(slider.value);
@@ -366,8 +372,10 @@ timeFrameSelect.onchange = () => {
 		slider.value,
 		timeFrameObj[timeFrameSelect.value],
 		selectSeasons,
-		lifetimeSlider.value
+		lifetimeSlider.value,
+		currencySelect.value
 	);
+
 };
 
 Object.keys(timeFrameObj).map((key) => {
@@ -380,21 +388,22 @@ Object.keys(timeFrameObj).map((key) => {
 //SEASON CHECKBOXES
 let seasons = ['spring', 'summer', 'autumn', 'winter'];
 let selectSeasons = 0;
-let seasonSelector = document.createElement('div');
+let seasonSelector = document.createElement('section');
 seasonSelector.classList.add('season-selector');
 let seasonSelectorText = document.createElement('button');
 seasonSelectorText.classList.add('season-selector-text', 'text-format');
-seasonSelectorText.textContent = 'Choose seasons:';
+seasonSelectorText.textContent = 'Seasons:';
 seasonSelector.appendChild(seasonSelectorText);
 let seasonCheckboxes = document.createElement('div');
 seasonCheckboxes.classList.add('season-checkboxes');
 seasonSelector.appendChild(seasonCheckboxes);
 
-seasons.map((season) => {
-	input = document.createElement('input');
-	label = document.createElement('label');
-	input.type = 'checkbox';
-	input.name = 'season';
+seasons.map(season => {
+	input = document.createElement("input");
+	label = document.createElement("label");
+	label.classList.add('text-format');
+	input.type = "checkbox";
+	input.name = "season";
 	input.id = season;
 	input.value = season;
 	input.onchange = () => {
@@ -411,7 +420,7 @@ seasons.map((season) => {
 	};
 	label.htmlFor = season;
 	label.textContent = season;
-	checkbox = document.createElement('div');
+	checkbox = document.createElement("div");
 	checkbox.appendChild(input);
 	checkbox.appendChild(label);
 	seasonCheckboxes.appendChild(checkbox);
@@ -545,15 +554,27 @@ currencySelect.onchange = () => {
 	);
 };
 
+let conversion = document.createElement('section');
+conversion.classList.add('conversion');
+conversion.appendChild(convertTo);
+conversion.appendChild(currencySelect);
+
+let yearlyUse = document.createElement('section');
+yearlyUse.classList.add('yearly-use');
+yearlyUse.appendChild(seasonSelector);
+yearlyUse.appendChild(lifetime);
+
+let costSection = document.createElement('section');
+costSection.classList.add('cost-section');
+costSection.appendChild(costPW);
+costSection.appendChild(conversion);
+
 //APPEND EVERYTHING TO BAR
-let zappyBar = document.createElement('div');
+let zappyBar = document.createElement('header');
 zappyBar.classList.add('sticky');
 zappyBar.appendChild(usesPerTimeframe);
-zappyBar.appendChild(seasonSelector);
-zappyBar.appendChild(lifetime);
-zappyBar.appendChild(costPW);
-zappyBar.appendChild(convertTo);
-zappyBar.appendChild(currencySelect);
+zappyBar.appendChild(yearlyUse);
+zappyBar.appendChild(costSection);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
