@@ -159,6 +159,7 @@ const itemLifetimes = {
 	shoes: 35,
 	shorts: 46,
 	skirt: 38,
+	sliders: 20,
 	slippers: 20,
 	sneakers: 91,
 	stilettos: 8,
