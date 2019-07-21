@@ -20,7 +20,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-let items = ["anorak",
+let items = [
+  "anorak",
   "apron",
   "baseball-cap",
   "belt",
@@ -78,26 +79,46 @@ let items = ["anorak",
   "t-shirt",
   "underpants",
   "vest",
-  "wellingtons"];
+  "wellingtons"
+];
 
 items.forEach(item => {
   chrome.runtime.onInstalled.addListener(() => {
     chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
-      chrome.declarativeContent.onPageChanged.addRules(
-        [
-          {
-            conditions: [
-              new chrome.declarativeContent.PageStateMatcher(
-                {
-                  pageUrl: { urlContains: item },
-                }),
-            ],
-            actions: [new chrome.declarativeContent.ShowPageAction()]
-          }
-        ]
-      );
+      chrome.declarativeContent.onPageChanged.addRules([
+        {
+          conditions: [
+            new chrome.declarativeContent.PageStateMatcher({
+              pageUrl: { urlContains: item }
+            })
+          ],
+          actions: [new chrome.declarativeContent.ShowPageAction()]
+        }
+      ]);
     });
   });
-})
+});
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const { url, word, baseLang, targetLang } = request;
 
+  if (request.contentScriptQuery == "getTranslation") {
+    console.log("URL:", url);
+    fetch(url, {
+      headers: {
+        "X-RapidAPI-Host": "currency-converter5.p.rapidapi.com",
+        "X-RapidAPI-Key": "443ad39d7emshd5a159e64a17efcp114583jsndaf97a539a59",
+        q: word,
+        source: baseLang,
+        target: targetLang
+      }
+    })
+      .then(r => r.json())
+      .then(result => {
+        console.log("this is the translate result:", result);
+        sendResponse({ res: result });
+      })
+      .catch(err => console.log(err));
+    return true;
+  }
+});
