@@ -48,6 +48,7 @@
         "https://*/*gloves*",
         "https://*/*hat*",
         "https://*/*high-heels*",
+        "https://*/*hoodie*",
         "https://*/*jacket*",
         "https://*/*jeans*",
         "https://*/*jumpsuit*",
@@ -87,6 +88,7 @@
         "https://*/*trousers*",
         "https://*/*t-shirt",
         "https://*/*underpants",
+        "https://*/*underwear*",
         "https://*/*vest*",
         "https://*/*wellingtons*"
       ],
