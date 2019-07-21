@@ -216,25 +216,6 @@ body {
   align-items: center;
 }
 
-.cost-value {
-  font-weight: bold !important;
-}
-
-.lifetime-value {
-  font-weight: bold !important;
-}
-
-.use-value {
-  font-weight: bold !important;
-  text-align: right;
-  display: inline-block;
-  width: 3.5ch;
-}
-
-.text-value {
-  font-weight: bold !important;
-}
-
 .currencySelect {
   margin: 5px;
   font-size: 15px !important;
@@ -329,10 +310,12 @@ body {
 
 .cost-value {
   font-weight: bold !important;
+  margin: 0 5px !important;
 }
 
 .lifetime-value {
   font-weight: bold !important;
+  margin: 0 5px !important;
 }
 
 .use-value {
@@ -340,10 +323,12 @@ body {
   text-align: right;
   display: inline-block;
   width: 3.5ch;
+  margin: 0 5px !important;
 }
 
 .text-value {
   font-weight: bold !important;
+  margin: 0 5px !important;
 }
 
 .currencySelect,
