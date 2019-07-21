@@ -1,9 +1,26 @@
 // CONNECT CONTENT SCRIPT TO EXTENSION INFO
-//look for name of clothing item in title. done.
-//if found, retrieve average lifetime of item from object. done.
-// calc weekly use and input into zappy bar
-// if not, stop rest of extension from running?
+let zappyState = 'enabled';
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.state === 'enabled') {
+    document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
+    document.body.classList.add("newBody");
+  } else if (message.state === 'disabled') {
+    zappyBar.remove();
+    document.body.classList.remove("newBody");
+  } else if (message.request) {
+    sendResponse({ state: zappyState });
+  }
+});
+
+const sendState = (currentState) => {
+  chrome.runtime.sendMessage({
+    state: currentState
+  });
+}
+
+
+//SCRAPE AND MATCH ITEM TYPE FROM PAGE TITLE
 const title = document.title;
 
 const itemLifetimes = {
@@ -75,9 +92,7 @@ const pageItemArray = itemArray.filter((word) =>
 	title.toLowerCase().includes(word)
 );
 const pageItem = pageItemArray[0];
-console.log(pageItem);
 const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number of uses over 2 years
-console.log('lifetime =', weeklyItemUse);
 
 // SCRAPE AND FORMAT PRICE FROM POPULAR FASHION SITES
 let price = document.getElementsByClassName('css-b9fpep'); // NIKE price span class
@@ -111,7 +126,6 @@ const CPW = (itemCost, timeFrameValue, timeFrame, selectSeasons, lifetime) => {
 	if (selectSeasons === 0 || timeFrame === 365) {
 		selectSeasons = 4;
 	}
-	console.log('Seasons', selectSeasons);
 	lifetimeDays = lifetime * 365;
 	let wearAmount =
 		lifetimeDays * (selectSeasons * 0.25) * (timeFrameValue / timeFrame);
@@ -364,12 +378,14 @@ lifetimeSlider.oninput = () => {
 };
 
 //CLOSE BUTTON
-let closeButton = document.createElement('button');
-closeButton.innerText = '✕';
-closeButton.classList.add('close');
-closeButton.addEventListener('click', () => {
-	zappyBar.remove();
-	document.body.classList.remove('newBody');
+let closeButton = document.createElement("button");
+closeButton.innerText = "✕";
+closeButton.classList.add("close");
+closeButton.addEventListener("click", () => {
+  zappyBar.remove();
+  document.body.classList.remove("newBody");
+  sendState('disabled');
+  zappyState = 'disabled';
 });
 
 //APPEND EVERYTHING TO BAR
