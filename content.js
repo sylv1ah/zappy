@@ -173,8 +173,8 @@ const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number
 
 
 //COST PER WEAR
-let costPW = document.createElement('div');
-costPW.classList.add('text-format');
+let costPW = document.createElement('section');
+costPW.classList.add('cost-PW');
 
 let costValue = document.createElement('span');
 costValue.classList.add('cost-value', 'text-format');
@@ -271,7 +271,7 @@ slider.oninput = () => {
 //INFO BUTTON
 const info = document.createElement('div');
 info.classList.add('info-button');
-const infoText = document.createElement('span');
+const infoText = document.createElement('div');
 infoText.classList.add('info-text');
 infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per ${slider.timeframe}.`;
 info.appendChild(infoText);
@@ -357,7 +357,7 @@ Object.keys(timeFrameObj).map((key) => {
 //SEASON CHECKBOXES
 let seasons = ['spring', 'summer', 'autumn', 'winter'];
 let selectSeasons = 0;
-let seasonSelector = document.createElement('div');
+let seasonSelector = document.createElement('section');
 seasonSelector.classList.add('season-selector');
 let seasonSelectorText = document.createElement('button');
 seasonSelectorText.classList.add('season-selector-text', 'text-format');
@@ -523,15 +523,19 @@ currencySelect.onchange = () => {
   );
 };
 
+let conversion = document.createElement('section');
+conversion.classList.add('conversion');
+conversion.appendChild(convertTo);
+conversion.appendChild(currencySelect);
+
 //APPEND EVERYTHING TO BAR
-let zappyBar = document.createElement('div');
+let zappyBar = document.createElement('header');
 zappyBar.classList.add('sticky');
 zappyBar.appendChild(usesPerTimeframe);
 zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
-zappyBar.appendChild(convertTo);
-zappyBar.appendChild(currencySelect);
+zappyBar.appendChild(conversion);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);

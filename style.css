@@ -39,7 +39,7 @@
 	width: 50px;
 	height: 50px;
 	border: 0;
-	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png') no-repeat center;
+	background: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png') no-repeat center;
 	background-size: contain;
 	cursor: pointer;
 	/* margin: 0 0px 0 -10px; */
@@ -49,18 +49,18 @@
 	width: 50px;
 	height: 50px;
 	border: 0;
-	background: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png') no-repeat center;
+	background: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png') no-repeat center;
 	background-size: contain;
 	cursor: pointer;
 	/* margin: 0 0px 0 -10px; */
 }
 
 .lifetime-slider::-webkit-slider-thumb {
-	background-image: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin-blue48.png');
+	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png');
 }
 
 .lifetime-slider::-moz-range-thumb {
-	background-image: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin-blue48.png');
+	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png');
 }
 
 body {
@@ -163,7 +163,7 @@ body {
 	background-color: transparent;
 	cursor: pointer;
 	font-size: 25.6px;
-	margin: 0.2em !important;
+	margin: 0.5em !important;
 	padding: 0em !important;
 	display: flex;
 	align-items: center;
@@ -171,7 +171,7 @@ body {
 }
 
 .info-button {
-	background-image: url('chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/info32.png');
+	background-image: url('chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/info32.png');
 	background-repeat: no-repeat !important;
 	background-position: center !important;
 	background-size: contain !important;
@@ -185,36 +185,7 @@ body {
 	position: relative;
 }
 
-.info-button .info-text {
-	font-size: 16px !important;
-	font-family: Tahoma !important;
-	font-weight: 400 !important;
-	-webkit-font-smoothing: auto !important;
-	-moz-osx-font-smoothing: auto !important;
-	line-height: 1.2 !important;
-	letter-spacing: normal !important;
-	text-transform: none !important;
-	width: 10em;
 
-	visibility: hidden;
-	background-color: #fff;
-	color: #555 !important;
-	text-align: center;
-	padding: 0.3em;
-	border-radius: 6px;
-	position: absolute;
-	z-index: 1;
-	top: 125%;
-	left: 50%;
-	margin-left: -60px;
-	opacity: 0;
-	transition: opacity 0.3s;
-}
-
-.info-button:hover .info-text {
-	visibility: visible;
-	opacity: 1;
-}
 
 .text-format {
 	font-size: 16px !important;
@@ -271,6 +242,7 @@ body {
 }
 
 .currencySelect {
+	margin: 5px;
 	font-size: 1em;
 	width: 6em;
 	-webkit-appearance: none;
@@ -282,4 +254,45 @@ body {
 	border-radius: 0px;
 	border-image: none 100% / 1 / 0 stretch;
 	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) 4.5em center no-repeat rgb(255, 255, 255);
+}
+
+.conversion {
+	display: flex;
+	align-items: center;
+	width: 200px;
+}
+
+.info-button .info-text {
+	font-size: 16px !important;
+	font-family: Tahoma !important;
+	font-weight: 400 !important;
+	-webkit-font-smoothing: auto !important;
+	-moz-osx-font-smoothing: auto !important;
+	line-height: 1.2 !important;
+	letter-spacing: normal !important;
+	text-transform: none !important;
+	width: 20em;
+	visibility: hidden;
+	background-color: #fff;
+	color: #555 !important;
+	text-align: center;
+	padding: 0.3em;
+	border: 1px solid black;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	top: 125%;
+	left: 50%;
+	margin-left: -60px;
+	opacity: 0;
+	transition: opacity 0.3s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.info-button:hover .info-text {
+	visibility: visible;
+	opacity: 1;
 }
