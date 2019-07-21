@@ -333,7 +333,7 @@ timeFrameSelect.onchange = () => {
   slider.value = Math.round(
     convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
   );
-  infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
+  infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${timeFrameSelect.value == 'week' ? weeklyItemUse.toFixed(2) : convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
   slider.timeframe = timeFrameSelect.value;
   slider.max = timeFrameObj[timeFrameSelect.value];
   changeSliderValue(slider.value);
