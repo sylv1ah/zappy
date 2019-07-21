@@ -12,7 +12,10 @@
   box-shadow: 0px 5px 40px 1px black;
   font-family: "futura-pt-n4", "futura-pt", Tahoma, Geneva, Verdana, Arial,
     sans-serif;
-  font-size: 1em;
+}
+
+input[type="checkbox"] {
+  margin: 3px 0.5ex !important;
 }
 
 .slider {
@@ -39,7 +42,7 @@
   width: 50px;
   height: 50px;
   border: 0;
-  background: url("chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png")
+  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
     no-repeat center;
   background-size: contain;
   cursor: pointer;
@@ -50,7 +53,7 @@
   width: 50px;
   height: 50px;
   border: 0;
-  background: url("chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin48.png")
+  background: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin48.png")
     no-repeat center;
   background-size: contain;
   cursor: pointer;
@@ -58,15 +61,28 @@
 }
 
 .lifetime-slider::-webkit-slider-thumb {
-  background-image: url("chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin-blue48.png");
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
 }
 
 .lifetime-slider::-moz-range-thumb {
-  background-image: url("chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/terrapin-blue48.png");
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/terrapin-blue48.png");
 }
 
 body {
   padding-top: 100px;
+}
+
+.text-format {
+  font-size: 16px !important;
+  font-family: Tahoma !important;
+  font-weight: 400 !important;
+  -webkit-font-smoothing: auto !important;
+  -moz-osx-font-smoothing: auto !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  color: black !important;
+  text-transform: none !important;
+  margin: 0 !important;
 }
 
 #timeFrameSelect {
@@ -89,13 +105,9 @@ body {
 }
 
 .season-selector {
-  width: fit-content;
+  width: auto;
   user-select: none;
   background-color: white;
-  width: 10em;
-  /* height: 80%; */
-  /* display: flex;
-  align-items: center; */
 }
 
 .season-selector button {
@@ -104,20 +116,19 @@ body {
   border-style: none;
   border-color: none;
   border-image: none;
-  width: 10em;
-  font-size: 1em !important;
+  width: 6em;
+  font-size: 16px !important;
   text-align: start;
   height: 1.5em;
   padding: 0.2em;
   cursor: pointer;
-
   font-family: Tahoma !important;
   font-weight: 400 !important;
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: auto !important;
   line-height: 1 !important;
   letter-spacing: normal !important;
-  color: black !important;
+  /* color: black !important; */
   text-transform: none !important;
   margin: 0 !important;
 }
@@ -133,18 +144,18 @@ body {
 }
 
 .season-selector-text {
-  width: 10em;
+  width: 5em;
   background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
     no-repeat right #ffffff;
-  background-position-x: 8.5em;
+  background-position-x: 4.5em;
 }
 
 .season-checkboxes {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  /* flex-direction: column; */
   background-color: white;
   position: absolute;
-  width: 10em;
+  width: 6em;
   display: none;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
@@ -167,7 +178,7 @@ body {
   background-color: transparent;
   cursor: pointer;
   font-size: 25.6px;
-  margin: 0.2em !important;
+  margin: 0.5em !important;
   padding: 0em !important;
   display: flex;
   align-items: center;
@@ -175,7 +186,7 @@ body {
 }
 
 .info-button {
-  background-image: url("chrome-extension://eoalgbhpjhkmodechmmcgkallfpgbfmh/assets/info32.png");
+  background-image: url("chrome-extension://fbaigldmokjfjndfhdpmcifohfjgddgh/assets/info32.png");
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: contain !important;
@@ -189,6 +200,64 @@ body {
   position: relative;
 }
 
+.input-format {
+  margin: 3px 0.5ex !important;
+  padding: 0 !important;
+}
+
+.label-format {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.lifetime {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cost-value {
+  font-weight: bold !important;
+}
+
+.lifetime-value {
+  font-weight: bold !important;
+}
+
+.use-value {
+  font-weight: bold !important;
+  text-align: right;
+  display: inline-block;
+  width: 3.5ch;
+}
+
+.text-value {
+  font-weight: bold !important;
+}
+
+.currencySelect {
+  margin: 5px;
+  font-size: 16px !important;
+  width: 4em;
+  -webkit-appearance: none;
+  cursor: pointer;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  padding: 0.2em;
+  border-radius: 0px;
+  border-image: none 100% / 1 / 0 stretch;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+    2.5em center no-repeat rgb(255, 255, 255);
+}
+
+.conversion {
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin: 10px;
+}
+
 .info-button .info-text {
   font-size: 16px !important;
   font-family: Tahoma !important;
@@ -198,13 +267,13 @@ body {
   line-height: 1.2 !important;
   letter-spacing: normal !important;
   text-transform: none !important;
-  width: 10em;
-
+  width: 20em;
   visibility: hidden;
   background-color: #fff;
   color: #555 !important;
   text-align: center;
   padding: 0.3em;
+  border: 1px solid black;
   border-radius: 6px;
   position: absolute;
   z-index: 1;
@@ -213,6 +282,9 @@ body {
   margin-left: -60px;
   opacity: 0;
   transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .info-button:hover .info-text {
@@ -288,4 +360,211 @@ body {
   border-image: none 100% / 1 / 0 stretch;
   background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
     4.5em center no-repeat rgb(255, 255, 255);
+}
+.cost-PW {
+  margin: 10px;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uses-per-timeframe {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+}
+
+.yearly-use {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
+}
+
+.cost-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
+}
+
+.season-selector .disabled,
+.season-selector .disabled:hover,
+.season-selector .disabled:focus {
+  color: grey !important;
+}
+
+@media only screen and (max-width: 1410px) {
+  .text-format {
+    font-size: 14px !important;
+  }
+
+  #timeFrameSelect {
+    font-size: 14px !important;
+  }
+
+  .info-button .info-text {
+    font-size: 14px !important;
+  }
+
+  .season-selector button {
+    font-size: 14px !important;
+  }
+
+  .currencySelect {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .text-format {
+    font-size: 12px !important;
+  }
+
+  #timeFrameSelect {
+    font-size: 12px !important;
+  }
+
+  .info-button .info-text {
+    font-size: 12px !important;
+  }
+
+  .season-selector button {
+    font-size: 12px !important;
+  }
+
+  .currencySelect {
+    font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .text-format {
+    font-size: 12px !important;
+  }
+
+  #timeFrameSelect {
+    font-size: 12px !important;
+  }
+
+  .info-button .info-text {
+    font-size: 12px !important;
+  }
+
+  .season-selector button {
+    font-size: 12px !important;
+  }
+
+  .currencySelect {
+    font-size: 12px !important;
+  }
+}
+
+@media only screen and (max-width: 1140px) {
+  .slider {
+    width: 15vw;
+    height: 10px;
+  }
+
+  .lifetime-slider {
+    width: 7.5vw;
+  }
+
+  .slider::-webkit-slider-thumb {
+    width: 40px;
+    height: 40px;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 40px;
+    height: 40px;
+  }
+
+  .info-button {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .uses-per-timeframe {
+    width: 35vw;
+  }
+
+  .yearly-use {
+    width: 30vw;
+  }
+
+  .cost-section {
+    width: 30vw;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .text-format {
+    font-size: 11px !important;
+  }
+
+  #timeFrameSelect {
+    font-size: 11px !important;
+  }
+
+  .info-button .info-text {
+    font-size: 11px !important;
+  }
+
+  .season-selector button {
+    font-size: 11px !important;
+  }
+
+  .currencySelect {
+    font-size: 11px !important;
+  }
+
+  .season-selector-text {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
+
+  #timeFrameSelect {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
+
+  .currencySelect {
+    background-image: url(https://www.wmtr.com/images/down_arrow2.png);
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .conversion {
+    display: none;
+  }
+
+  .close {
+    display: none;
+  }
+
+  .uses-per-timeframe {
+    width: 45vw;
+  }
+
+  .yearly-use {
+    width: 35vw;
+  }
+
+  .cost-section {
+    width: 20vw;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .slider::-webkit-slider-thumb {
+    width: 30px;
+    height: 30px;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+  }
 }

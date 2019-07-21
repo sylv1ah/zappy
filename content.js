@@ -2,12 +2,21 @@
 let price = document.getElementsByClassName("css-b9fpep"); // NIKE price span class
 if (price.length == 0) price = document.getElementsByClassName("current-price"); // ASOS
 if (price.length == 0) price = document.getElementsByClassName("product-price"); // ZARA - not working yet
-if (price.length == 0) price = document.getElementsByClassName("price-sales"); // Uniqlo
+if (price.length == 0) price = document.getElementsByClassName("price-sales"); // Uniqlo and Boohoo
 if (price.length == 0)
   price = document.getElementsByClassName("price-discount"); // Shein
 if (price.length == 0) price = document.getElementsByClassName("on-sale"); // Macy's sale items
-if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale
+if (price.length == 0) price = document.getElementsByClassName("price"); // Macy's non-sale and prettylittlething - not working
 if (price.length == 0) price = document.getElementsByClassName("Z1WEo3w"); // Nordstrom
+if (price.length == 0) price = document.getElementsByClassName("xk"); // Zappos
+if (price.length == 0)
+  price = document.getElementsByClassName(
+    "fabric-purchasable-product-component-simplified-price-sale-price"
+  ); // Victoria's secret sale
+if (price.length == 0)
+  price = document.getElementsByClassName(
+    "fabric-purchasable-product-component-simplified-price"
+  ); // Victoria's secret non-sale
 
 // CURRENCY EXTRACTION
 
@@ -85,9 +94,6 @@ const itemCost = parseFloat(
     .replace(code, "")
     .replace(symbol, "")
 ).toFixed(2);
-
-console.log("Currency Details:", currencyDetails);
-console.log("Stripped Item Cost:", itemCost);
 
 // CONNECT CONTENT SCRIPT TO EXTENSION INFO
 let zappyState = "enabled";
@@ -170,7 +176,7 @@ const itemLifetimes = {
   top: 95,
   tracksuit: 34,
   trainers: 91,
-  trousers: 19,
+  trouser: 19,
   underpants: 36,
   underwear: 36,
   vest: 36,
@@ -185,8 +191,8 @@ const pageItem = pageItemArray[0];
 const weeklyItemUse = itemLifetimes[pageItem] / 104; // if data figure is number of uses over 2 years
 
 //COST PER WEAR
-let costPW = document.createElement("div");
-costPW.classList.add("text-format");
+let costPW = document.createElement("section");
+costPW.classList.add("cost-PW");
 
 let costValue = document.createElement("span");
 costValue.classList.add("cost-value", "text-format");
@@ -276,12 +282,26 @@ slider.oninput = () => {
 //INFO BUTTON
 const info = document.createElement("div");
 info.classList.add("info-button");
-const infoText = document.createElement("span");
+const infoText = document.createElement("div");
 infoText.classList.add("info-text");
 infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(
   2
 )} times per ${slider.timeframe}.`;
 info.appendChild(infoText);
+
+const changeInfoText = timeframe => {
+  switch (timeframe) {
+    case "month":
+      infoValue = weeklyItemUse * 4;
+      break;
+    case "year":
+      infoValue = weeklyItemUse * 52;
+      break;
+    default:
+      infoValue = weeklyItemUse;
+  }
+  return infoValue;
+};
 
 //TIME FRAME SELECT
 let timeFrameObj = {
@@ -324,7 +344,13 @@ const convertUses = (current, target, value) => {
 };
 
 timeFrameSelect.onchange = () => {
-  seasonSelectorText.disabled = timeFrameSelect.value === "year" ? true : false;
+  if (timeFrameSelect.value === "year") {
+    seasonSelectorText.disabled = true;
+    seasonSelectorText.classList.add("disabled");
+  } else {
+    seasonSelectorText.disabled = false;
+    seasonSelectorText.classList.remove("disabled");
+  }
 
   if (
     (seasonCheckboxes.style.display =
@@ -352,7 +378,8 @@ timeFrameSelect.onchange = () => {
     slider.value,
     timeFrameObj[timeFrameSelect.value],
     selectSeasons,
-    lifetimeSlider.value
+    lifetimeSlider.value,
+    currencySelect.value
   );
 };
 
@@ -366,11 +393,11 @@ Object.keys(timeFrameObj).map(key => {
 //SEASON CHECKBOXES
 let seasons = ["spring", "summer", "autumn", "winter"];
 let selectSeasons = 0;
-let seasonSelector = document.createElement("div");
+let seasonSelector = document.createElement("section");
 seasonSelector.classList.add("season-selector");
 let seasonSelectorText = document.createElement("button");
 seasonSelectorText.classList.add("season-selector-text", "text-format");
-seasonSelectorText.textContent = "Choose seasons:";
+seasonSelectorText.textContent = "Seasons:";
 seasonSelector.appendChild(seasonSelectorText);
 let seasonCheckboxes = document.createElement("div");
 seasonCheckboxes.classList.add("season-checkboxes");
@@ -379,6 +406,7 @@ seasonSelector.appendChild(seasonCheckboxes);
 seasons.map(season => {
   input = document.createElement("input");
   label = document.createElement("label");
+  label.classList.add("text-format");
   input.type = "checkbox";
   input.name = "season";
   input.id = season;
@@ -531,6 +559,21 @@ currencySelect.onchange = () => {
   );
 };
 
+let conversion = document.createElement("section");
+conversion.classList.add("conversion");
+conversion.appendChild(convertTo);
+conversion.appendChild(currencySelect);
+
+let yearlyUse = document.createElement("section");
+yearlyUse.classList.add("yearly-use");
+yearlyUse.appendChild(seasonSelector);
+yearlyUse.appendChild(lifetime);
+
+let costSection = document.createElement("section");
+costSection.classList.add("cost-section");
+costSection.appendChild(costPW);
+costSection.appendChild(conversion);
+
 //LANGUAGE TRANSLATE
 
 let allTextContents = [
@@ -545,7 +588,7 @@ let allTextContents = [
 
 let userLanguage;
 window.navigator.languages
-  ? (userLanguage = window.navigator.languages[2].slice(0, 2))
+  ? (userLanguage = window.navigator.languages[0].slice(0, 2))
   : (userLanguage =
       window.navigator.userLanguage.slice(0, 2) ||
       window.navigator.language.slice(0, 2));
@@ -579,15 +622,13 @@ seasons.forEach(eachItem => {
 });
 
 console.log("new seasons: ", seasons);
+
 //APPEND EVERYTHING TO BAR
-let zappyBar = document.createElement("div");
+let zappyBar = document.createElement("header");
 zappyBar.classList.add("sticky");
 zappyBar.appendChild(usesPerTimeframe);
-zappyBar.appendChild(seasonSelector);
-zappyBar.appendChild(lifetime);
-zappyBar.appendChild(costPW);
-zappyBar.appendChild(convertTo);
-zappyBar.appendChild(currencySelect);
+zappyBar.appendChild(yearlyUse);
+zappyBar.appendChild(costSection);
 zappyBar.appendChild(closeButton);
 
 document.body.parentNode.insertBefore(zappyBar, document.body.nextSibling);
