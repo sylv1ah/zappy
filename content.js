@@ -177,7 +177,7 @@ const info = document.createElement('div');
 info.classList.add('info-button');
 const infoText = document.createElement('span');
 infoText.classList.add('info-text');
-infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per week.`;
+infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${weeklyItemUse.toFixed(2)} times per ${slider.timeframe}.`;
 info.appendChild(infoText);
 
 
@@ -237,6 +237,7 @@ timeFrameSelect.onchange = () => {
 	slider.value = Math.round(
 		convertUses(slider.timeframe, timeFrameSelect.value, slider.value)
 	);
+	infoText.textContent = `The default slider value is estimated using data from surveyed shoppers. Based on this data, a ${pageItem} is worn ${convertUses(slider.timeframe, timeFrameSelect.value, weeklyItemUse).toFixed(2)} times per ${timeFrameSelect.value}.`;
 	slider.timeframe = timeFrameSelect.value;
 	slider.max = timeFrameObj[timeFrameSelect.value];
 	changeSliderValue(slider.value);
@@ -247,6 +248,7 @@ timeFrameSelect.onchange = () => {
 		selectSeasons,
 		lifetimeSlider.value
 	);
+	
 };
 
 Object.keys(timeFrameObj).map((key) => {
