@@ -363,11 +363,12 @@ let currencyConverterFunction = (selectedCurrency, runningTotal) => {
   );
 };
 
+let convertTo = document.createElement('p');
+convertTo.textContent = 'Convert to:'
+
 currencySelect.onchange = () => {
   let newCurrency = currencySelect.value;
   symbol = currencyIDList[newCurrency][0];
-  console.log("new currency:", newCurrency);
-  //   currencyConverterFunction(newCurrency);
 
   CPW(
     itemCost,
@@ -390,6 +391,7 @@ zappyBar.appendChild(seasonSelector);
 zappyBar.appendChild(lifetimeSlider);
 zappyBar.appendChild(lifetime);
 zappyBar.appendChild(costPW);
+zappyBar.appendChild(convertTo);
 zappyBar.appendChild(currencySelect);
 zappyBar.appendChild(closeButton);
 
